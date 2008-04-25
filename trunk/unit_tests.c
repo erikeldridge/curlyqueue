@@ -80,18 +80,18 @@ void test_case_curly_enqueue(){
 	/* END: test empty q */
 	
 	/* BEGIN: test q w 1 node */
+	int j = 8;
+	value = &j;
+	curly_enqueue( queue, value );
+
+	assert( 2 == queue->count );
+	assert( 8 == *(int*)queue->back->value );
+	assert( 8 == *(int*)queue->front->prev->value );
+	assert( 7 == *(int*)queue->front->value );
+
 	/* END: test q w 1 node */
 	
-	/* test q w > 1 node */
-	
-	/* test insert at back */
-	
-	/* test insert at front */
-	
 	curly_destroy_queue( queue );
-	
-	/* test q is properly destroyed */
-	//assert( 0 == queue->count );
 }
 
 int main(){
