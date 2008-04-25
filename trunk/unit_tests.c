@@ -43,6 +43,8 @@ void test_case_curly_create_node(){
 	assert( NULL == node->next );
 	assert( 5 == *(int*)node->value );
 	
+	free( node );
+
 	/* test proper assignment of node fields with sample struct value */
 	typedef struct {
 		int j;
@@ -62,27 +64,23 @@ void test_case_curly_create_node(){
 	free( node );
 }
 
-void test_case_curly_insert_node(){
+void test_case_curly_enqueue(){
 	
 	curlyqueue_t* queue = curly_create_queue();
 	
-	curlyqueue_node_t *prev, *next, *node;
 	int i = 7;
 	void* value = &i;
 	
 	/* BEGIN: test empty q */
-	prev = queue->back;
-	next = queue->front;
-	node = curly_create_node( value, prev, next );
-	
-	curly_insert_node( queue, node );
-	
+	curly_enqueue( queue, value );
+
 	assert( 1 == queue->count );
-	assert( node == queue->back );
-	assert( node == queue->front );
+	assert( 7 == *(int*)queue->back->value );
+	assert( 7 == *(int*)queue->front->value );
 	/* END: test empty q */
 	
-	/* test q w 1 node */
+	/* BEGIN: test q w 1 node */
+	/* END: test q w 1 node */
 	
 	/* test q w > 1 node */
 	
@@ -100,6 +98,6 @@ int main(){
 	test_case_curly_create_queue();
 	test_case_curly_destroy_queue();
 	test_case_curly_create_node();
-	test_case_curly_insert_node();
+	test_case_curly_enqueue();
 	return 0;
 }

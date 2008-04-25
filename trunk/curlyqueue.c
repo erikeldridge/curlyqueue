@@ -5,7 +5,7 @@
 #include "curlyqueue.h"
 
 	
-curlyqueue_node_t* 	curly_create_node( void* value, curlyqueue_node_t* prev, curlyqueue_node_t* next ){
+curlyqueue_node_t* curly_create_node( void* value, curlyqueue_node_t* prev, curlyqueue_node_t* next ){
 	
 	curlyqueue_node_t* node = ( curlyqueue_node_t* )malloc( sizeof( curlyqueue_node_t ) );
 	
