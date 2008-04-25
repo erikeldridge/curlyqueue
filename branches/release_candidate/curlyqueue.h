@@ -37,13 +37,6 @@ typedef struct curlyqueue_t {
 } curlyqueue_t;
 
 /**
- * define this as you need
- */
-typedef struct curlyqueue_node_value_t {
-	
-} curlyqueue_node_value_t;
-
-/**
  *  a node in a doubly linked list (dll). 
  */
 struct curlyqueue_node {
