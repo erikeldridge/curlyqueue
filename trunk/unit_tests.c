@@ -94,6 +94,35 @@ void test_case_curly_enqueue(){
 	curly_destroy_queue( queue );
 }
 
+void test_case_curly_dequeue(){
+	
+	curlyqueue_t* queue = curly_create_queue();
+	
+	int i = 7;
+	void* value = &i;
+	
+	/* BEGIN: test empty q */
+	curly_dequeue( queue );
+
+	assert( 1 == queue->count );
+	assert( 7 == *(int*)queue->back->value );
+	assert( 7 == *(int*)queue->front->value );
+	/* END: test empty q */
+	
+	/* BEGIN: test q w 1 node */
+	int j = 8;
+	value = &j;
+	curly_enqueue( queue, value );
+
+	assert( 2 == queue->count );
+	assert( 8 == *(int*)queue->back->value );
+	assert( 8 == *(int*)queue->front->prev->value );
+	assert( 7 == *(int*)queue->front->value );
+
+	/* END: test q w 1 node */
+	
+	curly_destroy_queue( queue );
+}
 int main(){
 	test_case_curly_create_queue();
 	test_case_curly_destroy_queue();
