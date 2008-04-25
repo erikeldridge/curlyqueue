@@ -115,39 +115,42 @@ void curly_enqueue( curlyqueue_t* queue, void* value ){
 	queue->count++;	
 }
 
-void* curly_dequeue( curlyqueue_t* queue ){
+/**
+ * @except	throws "empty_q" exception if q is empty
+ */
+void* curly_dequeue( curlyqueue_t* queue, except_t* e ){
 	
-//	if( DEBUG ){ printf("  BEGIN: dequeue \n"); }
-	
-	if( queue->count > 0 ){
+	if( curly_queue_is_empty( queue ) ){
+		/* throw exception */
+		e->thrown = 1;
+		memcpy( e->type, "empty_q", 8 );
+		return NULL;
+	}
 
-		/* set the value passed in to the value of the tail node */
-		void* value = &queue->front->value;
-		
-		/* BEGIN: removal of node containing value from queue */
-		curlyqueue_node_t *old_tail	= queue->front;
-		curlyqueue_node_t *new_tail	= queue->front->prev;
-		
-		/* reassign the tail */
-		queue->front = new_tail;
-		
-		/* reassign next ptr of new tail if tail != NULL */
-		if( NULL == new_tail ){
-			
-			/* if new tail is null, the list is empty, so reassign head too */
-			queue->back = NULL;		
-			
-		}else{
-			new_tail->next = NULL;
-		}
-		
-		/* destroy old tail  */
-		free( old_tail );		
-		
-		queue->count--;
-	}	
-	
-//	if( DEBUG ){ printf("  END: dequeue \n"); }
+	/* store the value of the node currently at the front of the q */
+	void* value = queue->front->value;
+
+	if( 1 == queue->count ){
+
+		free( queue->front );
+
+		/* dedangle pointers */
+		queue->front	= NULL;
+		queue->back	= NULL;
+
+	}else{
+		curlyqueue_node_t* old_front	= queue->front;
+		curlyqueue_node_t* new_front	= queue->front->prev;
+
+		queue->front = new_front;
+		new_front->next = NULL;
+
+		free( old_front );		
+	}
+
+	queue->count--;
+
+	return value;
 }
 
 void curly_insert_node( curlyqueue_t* queue, curlyqueue_node_t* node ){
