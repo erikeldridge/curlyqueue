@@ -4,10 +4,7 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
-/*
-	char *here = "-----here-----";
-	write( 0, here, 15 );
- */
+
 void test_case_curly_create_queue(){
 	curlyqueue_t* queue = curly_create_queue();
 	
