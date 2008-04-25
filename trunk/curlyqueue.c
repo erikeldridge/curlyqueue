@@ -123,7 +123,8 @@ void* curly_dequeue( curlyqueue_t* queue, except_t* e ){
 	if( curly_queue_is_empty( queue ) ){
 		/* throw exception */
 		e->thrown = 1;
-		memcpy( e->type, "empty_q", 8 );
+		/*TODO: figure out why memcpy is causing seg fault */
+		//memcpy( e->type, "empty_q", 8 );
 		return NULL;
 	}
 
