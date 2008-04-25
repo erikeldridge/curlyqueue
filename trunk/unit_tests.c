@@ -110,21 +110,34 @@ void test_case_curly_dequeue(){
 		
 		/* catch */
 		assert( 1 == e->thrown );
-		//assert( 0 == strcmp( "empty_q", e->type ) );
+		//TODO: assert( 0 == strcmp( "empty_q", e->type ) );
 	}
 	/* END: test empty q */
 	
 	/* BEGIN: test q w 1 node */
-	/*
+	
 	int j = 8;
 	value = &j;
 	curly_enqueue( queue, value );
 
-	assert( 2 == queue->count );
-	assert( 8 == *(int*)queue->back->value );
-	assert( 8 == *(int*)queue->front->prev->value );
-	assert( 7 == *(int*)queue->front->value );
-	*/
+	int k;
+	/* try */
+	{except_t* e;e->thrown=0;
+
+		k = *(int*)curly_dequeue( queue, e );
+		
+		/* catch */
+		assert( 0 == e->thrown );
+		//TODO: assert( 0 == strcmp( "empty_q", e->type ) );
+	}
+
+	/* check that correct value is returned */
+	assert( 8 == k );
+		
+	/* check that queue ptrs are reset correctly */
+	assert( NULL == queue->back );
+	assert( NULL == queue->front );
+
 	/* END: test q w 1 node */
 	
 	curly_destroy_queue( queue );
