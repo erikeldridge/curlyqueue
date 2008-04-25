@@ -62,25 +62,44 @@ void test_case_curly_create_node(){
 	free( node );
 }
 
-void test_case_curly_insert_before(){
+void test_case_curly_insert_node(){
 	
 	curlyqueue_t* queue = curly_create_queue();
 	
-	int i = 5;
-	
+	curlyqueue_node_t *prev, *next, *node;
+	int i = 7;
 	void* value = &i;
-	curlyqueue_node_t* prev = NULL;
-	curlyqueue_node_t* next = NULL;
 	
-	curlyqueue_node_t* node = curly_create_node( value, prev, next );
+	/* BEGIN: test empty q */
+	prev = queue->back;
+	next = queue->front;
+	node = curly_create_node( value, prev, next );
+	
+	curly_insert_node( queue, node );
+	
+	assert( 1 == queue->count );
+	assert( node == queue->back );
+	assert( node == queue->front );
+	/* END: test empty q */
+	
+	/* test q w 1 node */
+	
+	/* test q w > 1 node */
+	
+	/* test insert at back */
+	
+	/* test insert at front */
 	
 	curly_destroy_queue( queue );
-
+	
+	/* test q is properly destroyed */
+	//assert( 0 == queue->count );
 }
 
 int main(){
 	test_case_curly_create_queue();
 	test_case_curly_destroy_queue();
 	test_case_curly_create_node();
+	test_case_curly_insert_node();
 	return 0;
 }
