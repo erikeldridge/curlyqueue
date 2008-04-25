@@ -154,38 +154,6 @@ void* curly_dequeue( curlyqueue_t* queue, except_t* e ){
 }
 
 /**
- * Inserts a value into the q at the position before the node pointed at by the marker
- * @post	Mem has been allocated for a new node, a node was created,and the 
- * 		value is now in the queue
- * @note	The calling function is responsible for freeing the memory allocated
- */
-void curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* marker, void* value ){
-	
-
-	if( curly_queue_is_empty( queue ) || ( marker == queue->back ) ){
-
-		curly_enqueue( queue, value );
-
-	} else {
-
-		curlyqueue_node_t *prev = marker->prev;
-		curlyqueue_node_t *next = marker;
-
-		curlyqueue_node_t* node = curly_create_node( value, prev, marker );
-
-		marker->prev->next	= node;
-		marker->prev	 	= node;
-
-		queue->count++;
-	}
-}
-
-void curly_delete( curlyqueue_t* queue, curlyqueue_node_t* node ){
-
-//	if( DEBUG ){ printf("  END: deletevalue \n"); }
-}
-
-/**
  * A simple function that checks if a queue
  * is empty or not
  * 
