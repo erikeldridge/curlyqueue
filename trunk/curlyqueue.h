@@ -55,14 +55,17 @@ struct curlyqueue_node {
 /* BEGIN: method list */
 curlyqueue_t* 		curly_create_queue();
 void			curly_destroy_queue( curlyqueue_t* );
-void			curly_display_queue( curlyqueue_t* );
 curlyqueue_node_t* 	curly_create_node( void* value, curlyqueue_node_t *, curlyqueue_node_t * );
+
 void			curly_enqueue( curlyqueue_t* queue, void* value );
 void*			curly_dequeue( curlyqueue_t* queue, except_t* e );
-curlyqueue_node_t*	curly_search( void* value );
-void			curly_insert_node( curlyqueue_t* queue, curlyqueue_node_t* node );
-void			curly_delete( curlyqueue_t*, curlyqueue_node_t* node );
+
 int			curly_queue_is_empty( curlyqueue_t* );
+
+curlyqueue_node_t*	curly_search( void* value );
+void			curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* node, void* value );
+void			curly_delete( curlyqueue_t*, curlyqueue_node_t* node );
+
 /* END: method list */
 
 #endif /*CURLYQUEUE_H_*/
