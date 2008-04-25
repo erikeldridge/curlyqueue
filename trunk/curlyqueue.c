@@ -4,7 +4,13 @@
 
 #include "curlyqueue.h"
 
-	
+/**
+ * Creates new list node
+ * @pre	calling fn has determined prev and next pointers
+ * @post	mem has been allocated for new node and
+ * 		and node field values have been assigned
+ * @note	calling fn must free mem!
+ */
 curlyqueue_node_t* curly_create_node( void* value, curlyqueue_node_t* prev, curlyqueue_node_t* next ){
 	
 	curlyqueue_node_t* node = ( curlyqueue_node_t* )malloc( sizeof( curlyqueue_node_t ) );
@@ -18,6 +24,10 @@ curlyqueue_node_t* curly_create_node( void* value, curlyqueue_node_t* prev, curl
 
 /**
  * Initializes the linked list manager struct.
+ * @post	mem has been allocated for queuea and 
+ * 		field valies have been initialized to 
+ * 		null (if pointers) or zero (if count)
+ * @note	calling fn must free mem!
  */
 curlyqueue_t* curly_create_queue(){
 	
@@ -30,12 +40,10 @@ curlyqueue_t* curly_create_queue(){
 	return queue;
 }
 
-/** Rolls through dll, freeing resources.
- * 
+/** 
+ * Rolls through list, freeing resources.
  * @param	queue	the q to destroy
- * 
  * @pre		the queue pointer is not NULL
- * 
  * @post	all nodes in the list are freed
  * @post	the list manager's pointers are set to null
  * @post	the list manager's count is decremented for each freed node
@@ -76,40 +84,11 @@ void curly_destroy_queue( curlyqueue_t* queue ){
 	queue = NULL;
 }
 
-/**
- display the data in each node in a list
- 
- @param dll	the list to display
- */
-void curly_display( curlyqueue_t queue ){
-//	if( DEBUG ){ printf("  BEGIN: display \n" ); }
-	/**
-	 the current node
-	 */
-	curlyqueue_node_t* curr = queue.back;
-	
-	/**
-	 the next node in the list
-	 */
-	curlyqueue_node_t* next;
-	
-	/* loop until curr runs off the list, advancing curr, & 
-	 * printing curr's contents */
-	while( curr != NULL ){
-		
-		next = curr->next;
-
-		curr = next;
-	}
-//	if( DEBUG ){ printf("  END: display \n" ); }
-}
 
 /**
  * Creates a node for a given value and adds it to the back of a queue
- * 
- * @param	que	The queue to add the node to.
- * @param	value	The value to create the node for
- * 
+ * @param	queue	The queue to add the value to
+ * @param	value	The value to push onto the q
  * @post	The queue's count is incremented
  */
 void curly_enqueue( curlyqueue_t* queue, void* value ){
@@ -136,18 +115,6 @@ void curly_enqueue( curlyqueue_t* queue, void* value ){
 	queue->count++;	
 }
 
-/**
- * Removes a node from the front of a que and sets the 
- * value passed in to the value of the value in this node
- * 
- * @param	que	The queue to remove node from.
- * @param	value	The value to return
- * 
- * @post	The node has been popped of the front of the queue
- * @post	The value passed in has been set to the value of the
- * value in the dequeued node
- * @post	The queue's count is decremented
- */
 void* curly_dequeue( curlyqueue_t* queue ){
 	
 //	if( DEBUG ){ printf("  BEGIN: dequeue \n"); }
