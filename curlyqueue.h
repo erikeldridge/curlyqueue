@@ -11,6 +11,19 @@
 //int DEBUG = 1;
 #endif
 
+/**
+ * A datatype to help implement exception handling
+ * @field	thrown	A quasi-Boolean value indicating
+ * 			if an exception was thrown (1) 
+ * 			or not (0).
+ * @field	type	A short string to describe the 
+ * 			type of exception thrown
+ */
+typedef struct exception {
+	int thrown;
+	char type[10];
+} except_t;
+
 typedef struct curlyqueue_node	curlyqueue_node_t;
 
 /**
