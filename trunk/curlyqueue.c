@@ -182,12 +182,24 @@ void* curly_dequeue( curlyqueue_t* queue ){
 //	if( DEBUG ){ printf("  END: dequeue \n"); }
 }
 
-void curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* node ){
-//	if( DEBUG ){ printf("  BEGIN: insert_before \n"); }
+void curly_insert_node( curlyqueue_t* queue, curlyqueue_node_t* node ){
 	
-
+	curlyqueue_node_t* prev = node->prev;
+	curlyqueue_node_t* next = node->next;
 	
-//	if( DEBUG ){ printf("  END: insertByPriority \n"); }
+	if( NULL != prev ){
+		prev->next = node;
+	}else{
+		queue->back = node;
+	}
+	
+	if( NULL != next ){
+		next->prev = node;
+	}else{
+		queue->front = node;
+	}
+	
+	queue->count++;
 }
 
 void curly_delete( curlyqueue_t* queue, curlyqueue_node_t* node ){
