@@ -3,6 +3,7 @@
 #include "assert.h"
 #include "stdlib.h"
 #include "stdio.h"
+#include "string.h"
 /*
 	char *here = "-----here-----";
 	write( 0, here, 15 );
@@ -102,14 +103,19 @@ void test_case_curly_dequeue(){
 	void* value = &i;
 	
 	/* BEGIN: test empty q */
-	curly_dequeue( queue );
+	/* try */
+	{except_t* e;e->thrown=0;
 
-	assert( 1 == queue->count );
-	assert( 7 == *(int*)queue->back->value );
-	assert( 7 == *(int*)queue->front->value );
+		curly_dequeue( queue, e );
+		
+		/* catch */
+		assert( 1 == e->thrown );
+		//assert( 0 == strcmp( "empty_q", e->type ) );
+	}
 	/* END: test empty q */
 	
 	/* BEGIN: test q w 1 node */
+	/*
 	int j = 8;
 	value = &j;
 	curly_enqueue( queue, value );
@@ -118,7 +124,7 @@ void test_case_curly_dequeue(){
 	assert( 8 == *(int*)queue->back->value );
 	assert( 8 == *(int*)queue->front->prev->value );
 	assert( 7 == *(int*)queue->front->value );
-
+	*/
 	/* END: test q w 1 node */
 	
 	curly_destroy_queue( queue );
@@ -128,5 +134,6 @@ int main(){
 	test_case_curly_destroy_queue();
 	test_case_curly_create_node();
 	test_case_curly_enqueue();
+	test_case_curly_dequeue();
 	return 0;
 }
