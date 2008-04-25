@@ -104,13 +104,13 @@ void test_case_curly_dequeue(){
 	
 	/* BEGIN: test empty q */
 	/* try */
-	{except_t* e;e->thrown=0;
+	{except_t e;e.thrown=0;
 
-		curly_dequeue( queue, e );
+		curly_dequeue( queue, &e );
 		
 		/* catch */
-		assert( 1 == e->thrown );
-		//TODO: assert( 0 == strcmp( "empty_q", e->type ) );
+		assert( 1 == e.thrown );
+		assert( 0 == strcmp( "empty_q", e.type ) );
 	}
 	/* END: test empty q */
 	
@@ -122,13 +122,12 @@ void test_case_curly_dequeue(){
 
 	int k;
 	/* try */
-	{except_t* e;e->thrown=0;
+	{except_t e;e.thrown=0;
 
-		k = *(int*)curly_dequeue( queue, e );
+		k = *(int*)curly_dequeue( queue, &e );
 		
 		/* catch */
-		assert( 0 == e->thrown );
-		//TODO: assert( 0 == strcmp( "empty_q", e->type ) );
+		assert( 0 == e.thrown );
 	}
 
 	/* check that correct value is returned */
@@ -140,8 +139,37 @@ void test_case_curly_dequeue(){
 
 	/* END: test q w 1 node */
 	
+	/* BEGIN: test q w > 1 node */
+	
+	int l = 3;
+	value = &l;
+	curly_enqueue( queue, value );
+
+	int m = 4;
+	value = &m;
+	curly_enqueue( queue, value );
+
+	int n;
+	/* try */
+	{except_t e;e.thrown=0;
+
+		n = *(int*)curly_dequeue( queue, &e );
+	}
+
+	/* check that correct value is returned for a fifo list */
+	assert( 3 == n );
+		
+	/* assert that the last value entered is still in the queue */
+	assert( 4 == *(int*)queue->back->value );
+
+	/* assert that the front was reset correctly */
+	assert( NULL == queue->front->next );
+
+	/* END: test q w > 1 node */
+
 	curly_destroy_queue( queue );
 }
+
 int main(){
 	test_case_curly_create_queue();
 	test_case_curly_destroy_queue();
