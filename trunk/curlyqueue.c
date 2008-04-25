@@ -173,8 +173,8 @@ void curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* marker, void* 
 
 		curlyqueue_node_t* node = curly_create_node( value, prev, marker );
 
-		marker->prev		= node;
-		marker->next->prev 	= node;
+		marker->prev->next	= node;
+		marker->prev	 	= node;
 
 		queue->count++;
 	}
