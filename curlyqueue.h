@@ -62,9 +62,12 @@ void*			curly_dequeue( curlyqueue_t* queue, except_t* e );
 
 int			curly_queue_is_empty( curlyqueue_t* );
 
-curlyqueue_node_t*	curly_search( void* value );
+/* In the works ...
+curlyqueue_node_t*	curly_iterator_next( curlyqueue_node_t* node );
+int			curly_iterator_has_next( curlyqueue_node_t* node );
 void			curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* node, void* value );
 void			curly_delete( curlyqueue_t*, curlyqueue_node_t* node );
+*/
 
 /* END: method list */
 
