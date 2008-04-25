@@ -58,7 +58,8 @@ void curly_destroy_queue( curlyqueue_t* queue ){
 		next = curr->next;
 		
 		if( NULL != curr->value ){
-			free( curr->value );
+			//TODO: do we need to free the node value?
+			//free( curr->value );
 		}
 		
 		free( curr );
