@@ -53,16 +53,16 @@ struct curlyqueue_node {
 };
 
 /* BEGIN: method list */
+
+curlyqueue_node_t* 	curly_create_node( void* value, curlyqueue_node_t *, curlyqueue_node_t * );
+
 curlyqueue_t* 		curly_create_queue();
 void			curly_destroy_queue( curlyqueue_t* );
-curlyqueue_node_t* 	curly_create_node( void* value, curlyqueue_node_t *, curlyqueue_node_t * );
 
 void			curly_enqueue( curlyqueue_t* queue, void* value );
 void*			curly_dequeue( curlyqueue_t* queue, except_t* e );
 
 int			curly_queue_is_empty( curlyqueue_t* );
-
-void			curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* node, void* value );
 
 /* END: method list */
 
