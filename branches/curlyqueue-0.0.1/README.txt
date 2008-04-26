@@ -26,8 +26,6 @@ b) For example, let this be the content of a file "hello_queue.c"
    located in the same directory as the curlyqueue-x.x.x directory:
 
 #include "curlyqueue-x.x.x/curlyqueue.h"
-
-#include "curlyqueue.h"
 #include "stdio.h"
 
 int main(){
