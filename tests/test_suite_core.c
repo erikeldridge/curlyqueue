@@ -5,7 +5,7 @@
 #include "stdio.h"
 #include "string.h"
 
-void test_case_curly_create_queue(){
+void test_curly_create_queue(){
 	curlyqueue_t* queue = curly_create_queue();
 	
 	/* test correct pointer & count initialization */
@@ -16,7 +16,7 @@ void test_case_curly_create_queue(){
 	free( queue );
 }
 
-void test_case_curly_destroy_queue(){
+void test_curly_destroy_queue(){
 	curlyqueue_t* queue = curly_create_queue();
 	
 	curly_destroy_queue( queue );
@@ -26,8 +26,9 @@ void test_case_curly_destroy_queue(){
 	//assert( NULL == queue );
 }
 
-void test_case_curly_create_node(){
+void test_curly_create_node(){
 	
+	/* BEGIN TEST CASE: value with simple data type */
 	int i = 5;
 	
 	void* value = &i;
@@ -42,8 +43,9 @@ void test_case_curly_create_node(){
 	assert( 5 == *(int*)node->value );
 	
 	free( node );
+	/* END TEST CASE: value with simple data type */
 
-	/* test proper assignment of node fields with sample struct value */
+	/* BEGIN TEST CASE: value with complex data type */
 	typedef struct {
 		int j;
 	} sample_struct;
@@ -58,26 +60,27 @@ void test_case_curly_create_node(){
 	
 	sample_struct struct_value2 = *(sample_struct*)node->value;
 	assert( 7 == struct_value2.j );
+	/* END TEST CASE: value with complex data type */
 	
 	free( node );
 }
 
-void test_case_curly_enqueue(){
+void test_curly_enqueue(){
 	
 	curlyqueue_t* queue = curly_create_queue();
 	
 	int i = 7;
 	void* value = &i;
 	
-	/* BEGIN: test empty q */
+	/* BEGIN test case: empty q */
 	curly_enqueue( queue, value );
 
 	assert( 1 == queue->count );
 	assert( 7 == *(int*)queue->back->value );
 	assert( 7 == *(int*)queue->front->value );
-	/* END: test empty q */
+	/* END test case: empty q */
 	
-	/* BEGIN: test q w 1 node */
+	/* BEGIN test case: q w 1 node */
 	int j = 8;
 	value = &j;
 	curly_enqueue( queue, value );
@@ -87,19 +90,19 @@ void test_case_curly_enqueue(){
 	assert( 8 == *(int*)queue->front->prev->value );
 	assert( 7 == *(int*)queue->front->value );
 
-	/* END: test q w 1 node */
+	/* END test case: q w 1 node */
 	
 	curly_destroy_queue( queue );
 }
 
-void test_case_curly_dequeue(){
+void test_curly_dequeue(){
 	
 	curlyqueue_t* queue = curly_create_queue();
 	
 	int i = 7;
 	void* value = &i;
 	
-	/* BEGIN: test empty q */
+	/* BEGIN test case: empty q */
 	/* try */
 	{except_t e;e.thrown=0;
 
@@ -109,9 +112,9 @@ void test_case_curly_dequeue(){
 		assert( 1 == e.thrown );
 		assert( 0 == strcmp( "empty_q", e.type ) );
 	}
-	/* END: test empty q */
+	/* END test case: empty q */
 	
-	/* BEGIN: test q w 1 node */
+	/* BEGIN test case: q w 1 node */
 	
 	int j = 8;
 	value = &j;
@@ -134,9 +137,9 @@ void test_case_curly_dequeue(){
 	assert( NULL == queue->back );
 	assert( NULL == queue->front );
 
-	/* END: test q w 1 node */
+	/* END test case: q w 1 node */
 	
-	/* BEGIN: test q w > 1 node */
+	/* BEGIN test case: q w > 1 node */
 	
 	int l = 3;
 	value = &l;
@@ -162,17 +165,17 @@ void test_case_curly_dequeue(){
 	/* assert that the front was reset correctly */
 	assert( NULL == queue->front->next );
 
-	/* END: test q w > 1 node */
+	/* END test case: q w > 1 node */
 
 	curly_destroy_queue( queue );
 }
 
-int main(){
-	test_case_curly_create_queue();
-	test_case_curly_destroy_queue();
-	test_case_curly_create_node();
-	test_case_curly_enqueue();
-	test_case_curly_dequeue();
+void test_suite_core() {
+
+	test_curly_create_queue();
+	test_curly_destroy_queue();
+	test_curly_create_node();
+	test_curly_enqueue();
+	test_curly_dequeue();
 	
-	return 0;
 }
