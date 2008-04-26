@@ -2,7 +2,7 @@
 CC		= gcc
 CC_FLAGS	= -Wall -g
 TARGET		= test_runner
-LIB		= -L ../ -l curlyqueue
+LIB		= ../libcurlyqueue.a
 INC		= -I ../
 
 # link test runner object and curlyqueue lib
