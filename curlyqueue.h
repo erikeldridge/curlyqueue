@@ -57,6 +57,7 @@ int					curly_queue_is_empty( curlyqueue_t* );
 
 void				curly_reset_iterator( curlyqueue_t* queue );
 void				curly_advance_iterator( curlyqueue_t* queue, except_t* e );
+int					curly_iterator_has_next( curlyqueue_t* queue );
 
 void*				curly_get_value_at_iterator( curlyqueue_t* queue, except_t* e );
 void				curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* node, void* value );
