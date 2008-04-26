@@ -86,8 +86,23 @@ void test_curly_curly_advance_iterator(){
 	
 }
 
+void test_curly_get_value_at_iterator(){
+	curlyqueue_t* queue = curly_create_queue();
+	void* value;
+	/* BEGIN: test case - empty list */
+    {except_t e;e.thrown=0;
+    	value = curly_get_value_at_iterator( queue, &e );
+    	assert( e.thrown );
+    }
+	/* END: test case - empty list */
+	/* BEGIN: test case - non-empty list */
+	/* END: test case - non-empty list */
+	curly_destroy_queue( queue );
+}
+
 void test_suite_iterator() {
 
+	test_curly_get_value_at_iterator();
 	test_curly_curly_advance_iterator();
 	
 }
