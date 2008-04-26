@@ -19,41 +19,43 @@
 <a name="l00005"></a><a class="code" href="curlyqueue_8h.html#070d2ce7b6bb7e5c05602aa8c308d0c4">00005</a> <span class="preprocessor"></span><span class="preprocessor">#define NULL    0</span>
 <a name="l00006"></a>00006 <span class="preprocessor"></span><span class="preprocessor">#endif</span>
 <a name="l00007"></a>00007 <span class="preprocessor"></span>
-<a name="l00016"></a><a class="code" href="structexcept__t.html">00016</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>exception {
-<a name="l00017"></a><a class="code" href="structexcept__t.html#ee4f9c765653f7dec46c7c9cba173631">00017</a>         <span class="keywordtype">int</span> thrown;
-<a name="l00018"></a><a class="code" href="structexcept__t.html#cc92597e14cc1c8a7fc3bcbeb1e0cd32">00018</a>         <span class="keywordtype">char</span> type[10];
-<a name="l00019"></a>00019 } <a class="code" href="structexcept__t.html">except_t</a>;
-<a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="curlyqueue_8h.html#41d6b4bdbacc7b694299c74b415ab715">00021</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structcurlyqueue__node.html">curlyqueue_node</a>  <a class="code" href="structcurlyqueue__node.html">curlyqueue_node_t</a>;
-<a name="l00022"></a>00022 
-<a name="l00027"></a><a class="code" href="structcurlyqueue__t.html">00027</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a> {
-<a name="l00028"></a><a class="code" href="structcurlyqueue__t.html#f208bee49b0e20bf3d2a14aa8ef4edd0">00028</a>         <a class="code" href="structcurlyqueue__node.html">curlyqueue_node_t</a>* <a class="code" href="structcurlyqueue__t.html#f208bee49b0e20bf3d2a14aa8ef4edd0">back</a>;
-<a name="l00029"></a><a class="code" href="structcurlyqueue__t.html#fa664a69f7b8c2dcfb9cf18c725cb943">00029</a>         <a class="code" href="structcurlyqueue__node.html">curlyqueue_node_t</a>* <a class="code" href="structcurlyqueue__t.html#fa664a69f7b8c2dcfb9cf18c725cb943">front</a>;
-<a name="l00030"></a><a class="code" href="structcurlyqueue__t.html#aedd2e78e3d5344ffec0e98f7d5794b7">00030</a>         <span class="keywordtype">int</span> <a class="code" href="structcurlyqueue__t.html#aedd2e78e3d5344ffec0e98f7d5794b7">count</a>;
-<a name="l00031"></a>00031 } <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>;
-<a name="l00032"></a>00032 
-<a name="l00036"></a><a class="code" href="structcurlyqueue__node.html">00036</a> <span class="keyword">struct </span><a class="code" href="structcurlyqueue__node.html">curlyqueue_node</a> {
-<a name="l00037"></a><a class="code" href="structcurlyqueue__node.html#908b7516874282b4913a5befc864cf85">00037</a>         <span class="keywordtype">void</span>*                   <a class="code" href="structcurlyqueue__node.html#908b7516874282b4913a5befc864cf85">value</a>;
-<a name="l00038"></a><a class="code" href="structcurlyqueue__node.html#38628bf0c957fd580f4a9da69721b54a">00038</a>         <a class="code" href="structcurlyqueue__node.html">curlyqueue_node_t</a>*      <a class="code" href="structcurlyqueue__node.html#38628bf0c957fd580f4a9da69721b54a">prev</a>;
-<a name="l00039"></a><a class="code" href="structcurlyqueue__node.html#e5d2e8b3d4c20987d95141a542d273fe">00039</a>         <a class="code" href="structcurlyqueue__node.html">curlyqueue_node_t</a>*      <a class="code" href="structcurlyqueue__node.html#e5d2e8b3d4c20987d95141a542d273fe">next</a>;
-<a name="l00040"></a>00040 };
-<a name="l00041"></a>00041 
-<a name="l00042"></a>00042 <span class="comment">/* BEGIN: method list */</span>
+<a name="l00008"></a><a class="code" href="curlyqueue_8h.html#4258821324bbc75253114e166fc33987">00008</a> <span class="keyword">typedef</span> <span class="keyword">struct  </span><a class="code" href="structexcept__t.html">except_t</a>                <a class="code" href="structexcept__t.html">except_t</a>;
+<a name="l00009"></a><a class="code" href="curlyqueue_8h.html#2b69e3d9bb17d37630064f7dca386150">00009</a> <span class="keyword">typedef</span> <span class="keyword">struct  </span><a class="code" href="structcurlyqueue__node__t.html">curlyqueue_node_t</a>       <a class="code" href="structcurlyqueue__node__t.html">curlyqueue_node_t</a>;
+<a name="l00010"></a><a class="code" href="curlyqueue_8h.html#6622f0ee35a716601ebcf09f4d4cf97c">00010</a> <span class="keyword">typedef</span> <span class="keyword">struct  </span><a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>            <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>;
+<a name="l00011"></a>00011 
+<a name="l00020"></a><a class="code" href="structexcept__t.html">00020</a> <span class="keyword">struct </span><a class="code" href="structexcept__t.html">except_t</a> {
+<a name="l00021"></a><a class="code" href="structexcept__t.html#ee4f9c765653f7dec46c7c9cba173631">00021</a>         <span class="keywordtype">int</span> <a class="code" href="structexcept__t.html#ee4f9c765653f7dec46c7c9cba173631">thrown</a>;
+<a name="l00022"></a><a class="code" href="structexcept__t.html#cc92597e14cc1c8a7fc3bcbeb1e0cd32">00022</a>         <span class="keywordtype">char</span> <a class="code" href="structexcept__t.html#cc92597e14cc1c8a7fc3bcbeb1e0cd32">type</a>[10];
+<a name="l00023"></a>00023 };
+<a name="l00024"></a>00024 
+<a name="l00029"></a><a class="code" href="structcurlyqueue__t.html">00029</a> <span class="keyword">struct </span><a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a> {
+<a name="l00030"></a><a class="code" href="structcurlyqueue__t.html#f208bee49b0e20bf3d2a14aa8ef4edd0">00030</a>         <a class="code" href="structcurlyqueue__node__t.html">curlyqueue_node_t</a>* <a class="code" href="structcurlyqueue__t.html#f208bee49b0e20bf3d2a14aa8ef4edd0">back</a>;
+<a name="l00031"></a><a class="code" href="structcurlyqueue__t.html#fa664a69f7b8c2dcfb9cf18c725cb943">00031</a>         <a class="code" href="structcurlyqueue__node__t.html">curlyqueue_node_t</a>* <a class="code" href="structcurlyqueue__t.html#fa664a69f7b8c2dcfb9cf18c725cb943">front</a>;
+<a name="l00032"></a><a class="code" href="structcurlyqueue__t.html#aedd2e78e3d5344ffec0e98f7d5794b7">00032</a>         <span class="keywordtype">int</span> <a class="code" href="structcurlyqueue__t.html#aedd2e78e3d5344ffec0e98f7d5794b7">count</a>;
+<a name="l00033"></a>00033 };
+<a name="l00034"></a>00034 
+<a name="l00038"></a><a class="code" href="structcurlyqueue__node__t.html">00038</a> <span class="keyword">struct </span><a class="code" href="structcurlyqueue__node__t.html">curlyqueue_node_t</a> {
+<a name="l00039"></a><a class="code" href="structcurlyqueue__node__t.html#570f59b0a1de38043c14a7ec9bd8e4e3">00039</a>         <span class="keywordtype">void</span>*                   <a class="code" href="structcurlyqueue__node__t.html#570f59b0a1de38043c14a7ec9bd8e4e3">value</a>;
+<a name="l00040"></a><a class="code" href="structcurlyqueue__node__t.html#bfab72bad2f6d55afa1144baf97bd2d2">00040</a>         <a class="code" href="structcurlyqueue__node__t.html">curlyqueue_node_t</a>*      <a class="code" href="structcurlyqueue__node__t.html#bfab72bad2f6d55afa1144baf97bd2d2">prev</a>;
+<a name="l00041"></a><a class="code" href="structcurlyqueue__node__t.html#c65c3229759e36b83c225b0b05e870f5">00041</a>         <a class="code" href="structcurlyqueue__node__t.html">curlyqueue_node_t</a>*      <a class="code" href="structcurlyqueue__node__t.html#c65c3229759e36b83c225b0b05e870f5">next</a>;
+<a name="l00042"></a>00042 };
 <a name="l00043"></a>00043 
-<a name="l00044"></a>00044 <a class="code" href="structcurlyqueue__node.html">curlyqueue_node_t</a>*      <a class="code" href="curlyqueue_8c.html#da70922ebdf16c53fbe2be6950b6ad07">curly_create_node</a>( <span class="keywordtype">void</span>* value, <a class="code" href="structcurlyqueue__node.html">curlyqueue_node_t</a> *, <a class="code" href="structcurlyqueue__node.html">curlyqueue_node_t</a> * );
+<a name="l00044"></a>00044 <span class="comment">/* BEGIN: method list */</span>
 <a name="l00045"></a>00045 
-<a name="l00046"></a>00046 <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>*           <a class="code" href="curlyqueue_8c.html#267408b1449eb142acd32fca5505c8bc">curly_create_queue</a>();
-<a name="l00047"></a>00047 <span class="keywordtype">void</span>                    <a class="code" href="curlyqueue_8c.html#e04fae29a6cd177eeda9edd338a6a9c6">curly_destroy_queue</a>( <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>* );
-<a name="l00048"></a>00048 
-<a name="l00049"></a>00049 <span class="keywordtype">void</span>                    <a class="code" href="curlyqueue_8c.html#232ce5dcc572bbd03f7940696f156d6f">curly_enqueue</a>( <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>* queue, <span class="keywordtype">void</span>* value );
-<a name="l00050"></a>00050 <span class="keywordtype">void</span>*                   <a class="code" href="curlyqueue_8c.html#c90fa9fc33fc52040c59a3e727808a51">curly_dequeue</a>( <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>* queue, <a class="code" href="structexcept__t.html">except_t</a>* e );
-<a name="l00051"></a>00051 
-<a name="l00052"></a>00052 <span class="keywordtype">int</span>                     <a class="code" href="curlyqueue_8c.html#3774017553c2b8a6a30ad5fdf477a197">curly_queue_is_empty</a>( <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>* );
+<a name="l00046"></a>00046 <a class="code" href="structcurlyqueue__node__t.html">curlyqueue_node_t</a>*      <a class="code" href="curlyqueue_8c.html#da70922ebdf16c53fbe2be6950b6ad07">curly_create_node</a>( <span class="keywordtype">void</span>* value, <a class="code" href="structcurlyqueue__node__t.html">curlyqueue_node_t</a> *, <a class="code" href="structcurlyqueue__node__t.html">curlyqueue_node_t</a> * );
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048 <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>*           <a class="code" href="curlyqueue_8c.html#267408b1449eb142acd32fca5505c8bc">curly_create_queue</a>();
+<a name="l00049"></a>00049 <span class="keywordtype">void</span>                    <a class="code" href="curlyqueue_8c.html#e04fae29a6cd177eeda9edd338a6a9c6">curly_destroy_queue</a>( <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>* );
+<a name="l00050"></a>00050 
+<a name="l00051"></a>00051 <span class="keywordtype">void</span>                    <a class="code" href="curlyqueue_8c.html#232ce5dcc572bbd03f7940696f156d6f">curly_enqueue</a>( <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>* queue, <span class="keywordtype">void</span>* value );
+<a name="l00052"></a>00052 <span class="keywordtype">void</span>*                   <a class="code" href="curlyqueue_8c.html#c90fa9fc33fc52040c59a3e727808a51">curly_dequeue</a>( <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>* queue, <a class="code" href="structexcept__t.html">except_t</a>* e );
 <a name="l00053"></a>00053 
-<a name="l00054"></a>00054 <span class="comment">/* END: method list */</span>
+<a name="l00054"></a>00054 <span class="keywordtype">int</span>                     <a class="code" href="curlyqueue_8c.html#3774017553c2b8a6a30ad5fdf477a197">curly_queue_is_empty</a>( <a class="code" href="structcurlyqueue__t.html">curlyqueue_t</a>* );
 <a name="l00055"></a>00055 
-<a name="l00056"></a>00056 <span class="preprocessor">#endif </span><span class="comment">/*CURLYQUEUE_H_*/</span>
-</pre></div><hr size="1"><address style="text-align: right;"><small>Generated on Sat Apr 26 01:34:09 2008 for Curlyqueue by&nbsp;
+<a name="l00056"></a>00056 <span class="comment">/* END: method list */</span>
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058 <span class="preprocessor">#endif </span><span class="comment">/*CURLYQUEUE_H_*/</span>
+</pre></div><hr size="1"><address style="text-align: right;"><small>Generated on Sat Apr 26 01:47:45 2008 for Curlyqueue by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.3 </small></address>
 </body>
