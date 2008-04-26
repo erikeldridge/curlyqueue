@@ -5,6 +5,10 @@
 #define NULL	0
 #endif
 
+typedef struct	except_t		except_t;
+typedef struct	curlyqueue_node_t 	curlyqueue_node_t;
+typedef	struct	curlyqueue_t		curlyqueue_t;
+
 /**
  * A datatype to help implement exception handling
  * @field	thrown	A quasi-Boolean value indicating
@@ -13,27 +17,25 @@
  * @field	type	A short string to describe the 
  * 			type of exception thrown
  */
-typedef struct exception {
+struct except_t {
 	int thrown;
 	char type[10];
-} except_t;
-
-typedef struct curlyqueue_node	curlyqueue_node_t;
+};
 
 /**
  * The head, tail, and count of a doubly linked list (dll).  
  * Used for managing a dll 
  */
-typedef struct curlyqueue_t {
+struct curlyqueue_t {
 	curlyqueue_node_t* back;
 	curlyqueue_node_t* front;
 	int count;
-} curlyqueue_t;
+};
 
 /**
  *  a node in a doubly linked list (dll). 
  */
-struct curlyqueue_node {
+struct curlyqueue_node_t {
 	void*			value;
 	curlyqueue_node_t* 	prev;
 	curlyqueue_node_t* 	next;
