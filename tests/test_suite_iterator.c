@@ -95,7 +95,32 @@ void test_curly_get_value_at_iterator(){
     	assert( e.thrown );
     }
 	/* END: test case - empty list */
+    
 	/* BEGIN: test case - non-empty list */
+	int j = 4;
+	value = &j;
+	curly_enqueue( queue, value );
+	
+	int k = 3;
+	value = &k;
+	curly_enqueue( queue, value );
+	
+	curly_reset_iterator( queue );
+	
+	/* assert that get_value does not throw exception 
+	 * if called while iterator is pointed at a valid element
+	 * in list, as ensured by reset_iter 
+	 */
+    {except_t e;e.thrown=0;
+    	value = curly_get_value_at_iterator( queue, &e );
+    	assert( 0 == e.thrown );
+    }
+    
+    /*
+     * assert correct value is returned
+     */
+    assert( 3 == *(int*)value );
+    
 	/* END: test case - non-empty list */
 	curly_destroy_queue( queue );
 }
