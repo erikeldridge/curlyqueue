@@ -5,12 +5,6 @@
 #define NULL	0
 #endif
 
-#ifdef DEBUG
-//int DEBUG = 0;
-#else
-//int DEBUG = 1;
-#endif
-
 /**
  * A datatype to help implement exception handling
  * @field	thrown	A quasi-Boolean value indicating

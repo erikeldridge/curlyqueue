@@ -6,7 +6,7 @@
 
 /**
  * Creates new list node
- * @pre	calling fn has determined prev and next pointers
+ * @pre		calling fn has determined prev and next pointers
  * @post	mem has been allocated for new node and
  * 		and node field values have been assigned
  * @note	calling fn must free mem!
@@ -64,11 +64,6 @@ void curly_destroy_queue( curlyqueue_t* queue ){
 	while( curr != NULL ){
 		
 		next = curr->next;
-		
-		if( NULL != curr->value ){
-			//TODO: do we need to free the node value?
-			//free( curr->value );
-		}
 		
 		free( curr );
 		
