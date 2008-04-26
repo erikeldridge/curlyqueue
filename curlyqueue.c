@@ -4,6 +4,10 @@
 
 #include "curlyqueue.h"
 
+struct iterator_t {
+	curlyqueue_node_t* node;
+};
+
 /**
  * Creates new list node
  * @pre		calling fn has determined prev and next pointers
@@ -35,6 +39,7 @@ curlyqueue_t* curly_create_queue(){
 	
 	queue->back		= NULL;
 	queue->front	= NULL;
+	queue->iterator	= NULL;
 	queue->count	= 0;
 	
 	return queue;
@@ -165,6 +170,20 @@ int curly_queue_is_empty( curlyqueue_t* queue ){
 	}
 }
 
+void curly_reset_iterator( curlyqueue_t* queue ){
+	queue->iterator = queue->back;
+}
+
+void curly_advance_iterator( curlyqueue_t* queue, except_t* e ){
+	
+	if( NULL == queue->iterator ){
+		e->thrown = 1;
+		memcpy( e->type, "null_iter", 10 );
+		return;
+	}
+	
+	queue->iterator = queue->iterator->next; 
+}
 
 /**
  * Inserts a value into the q at the position before the node pointed at by the marker

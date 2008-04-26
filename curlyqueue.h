@@ -8,6 +8,7 @@
 typedef struct	except_t			except_t;
 typedef struct	curlyqueue_node_t 	curlyqueue_node_t;
 typedef	struct	curlyqueue_t		curlyqueue_t;
+typedef struct 	iterator_t*			curlyqueue_iterator;
 
 /**
  * A datatype to help implement exception handling
@@ -27,8 +28,9 @@ struct except_t {
  * Used for managing a dll 
  */
 struct curlyqueue_t {
-	curlyqueue_node_t* back;
-	curlyqueue_node_t* front;
+	curlyqueue_node_t*	back;
+	curlyqueue_node_t*	front;
+	curlyqueue_node_t*	iterator;
 	int count;
 };
 
@@ -36,7 +38,7 @@ struct curlyqueue_t {
  *  a node in a doubly linked list (dll). 
  */
 struct curlyqueue_node_t {
-	void*			value;
+	void*				value;
 	curlyqueue_node_t* 	prev;
 	curlyqueue_node_t* 	next;
 };
@@ -53,6 +55,9 @@ void*				curly_dequeue( curlyqueue_t* queue, except_t* e );
 
 int					curly_queue_is_empty( curlyqueue_t* );
 void				curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* node, void* value );
+
+void				curly_reset_iterator( curlyqueue_t* queue );
+void				curly_advance_iterator( curlyqueue_t* queue, except_t* e );
 
 /* In the works ...
 curlyqueue_node_t*	curly_iterator_next( curlyqueue_node_t* node );
