@@ -27,34 +27,46 @@ b) For example, let this be the content of a file "hello_queue.c"
 
 #include "curlyqueue-x.x.x/curlyqueue.h"
 
-int main(){
-	
-	/* create a queue */
-	curlyqueue_t* queue = curly_create_queue();
-	
-	/* put something in it */
-	int i = 100;
-	void *value = &i;
-	
-	curly_enqueue( queue, value );
-	
-	/* pop it back out */
-	value = curly_dequeue( queue );
-	
-	/* print it */
-	printf( "%d \n", *(int *)value );
-	
-	/* kill the queue */
-	curly_destroy_queue( queue );
+#include "curlyqueue.h"
+#include "stdio.h"
 
-	return 0;
-	
+int main(){
+
+        /* create a queue */
+        curlyqueue_t* queue = curly_create_queue();
+
+        /* put something in it */
+        int i = 100;
+        void *value = &i; 
+
+        curly_enqueue( queue, value );
+
+        /* pop it back out. */
+        {except_t e;e.thrown=0;
+                value = curly_dequeue( queue, &e );
+                /* assume no exception thrown 
+                 * Note: the docs give info on except_t 
+                 */
+        }   
+
+        /* print it */
+        printf( "%d \n", *(int *)value );
+
+        /* kill the queue */
+        curly_destroy_queue( queue );
+
+        return 0;
+
 }
+
 
 3) Compile your program and run it
 a) >gcc hello_queue.c curlyqueue-x.x.x/libcurlyqueue.a -o hello_queue
 b) >./hello_queue
    >100
+
+4) More examples of usage can be found in the unit tests in the 
+tests directory
 
 =The license
 
