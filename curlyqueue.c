@@ -6,7 +6,7 @@
 
 /**
  * Creates new list node
- * @pre	calling fn has determined prev and next pointers
+ * @pre		calling fn has determined prev and next pointers
  * @post	mem has been allocated for new node and
  * 		and node field values have been assigned
  * @note	calling fn must free mem!
@@ -164,40 +164,6 @@ int curly_queue_is_empty( curlyqueue_t* queue ){
 		return 0;
 	}
 }
-
-
-/**
- * Inserts a value into the q at the position before the node pointed at by the marker
- * @post	Mem has been allocated for a new node, a node was created,and the 
- * 		value is now in the queue
- * @note	The calling function is responsible for freeing the memory allocated
- */
-void curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* marker, void* value ){
-	
-
-	if( curly_queue_is_empty( queue ) || ( marker == queue->back ) ){
-
-		curly_enqueue( queue, value );
-
-	} else {
-
-		curlyqueue_node_t *prev = marker->prev;
-		curlyqueue_node_t *next = marker;
-
-		curlyqueue_node_t* node = curly_create_node( value, prev, marker );
-
-		marker->prev->next	= node;
-		marker->prev	 	= node;
-
-		queue->count++;
-	}
-}
-
-void curly_delete( curlyqueue_t* queue, curlyqueue_node_t* node ){
-
-//	if( DEBUG ){ printf("  END: deletevalue \n"); }
-}
-
 
 
 
