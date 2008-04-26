@@ -170,6 +170,11 @@ int curly_queue_is_empty( curlyqueue_t* queue ){
 	}
 }
 
+/**
+ * \note
+ * You should call this before every iterator walk
+ * to obtain predictable results
+ */
 void curly_reset_iterator( curlyqueue_t* queue ){
 	queue->iterator = queue->back;
 }
@@ -185,6 +190,19 @@ void curly_advance_iterator( curlyqueue_t* queue, except_t* e ){
 	queue->iterator = queue->iterator->next; 
 }
 
+/**
+ * Get the value at the point in the queue indicated by the iterator
+ */
+void* curly_get_value_at_iterator( curlyqueue_t* queue, except_t* e ){
+	if( NULL == queue->iterator ){
+		/* throw */
+		e->thrown = 1;
+		memcpy( e->type, "null_iter", 10 );
+		return NULL;
+	}
+	
+	return queue->iterator->value;
+}
 /**
  * Inserts a value into the q at the position before the node pointed at by the marker
  * @post	Mem has been allocated for a new node, a node was created,and the 

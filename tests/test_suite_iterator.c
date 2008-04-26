@@ -40,21 +40,22 @@ void test_curly_curly_advance_iterator(){
 	curly_enqueue( queue, value );
 	
 	curly_reset_iterator( queue );
-	int z;
+	
+	printf("sanity chk \n");
+	assert( queue->iterator != NULL );
+	assert( *(int*)queue->iterator->value == 0 );
+	
+	int val;
 	int i;
 	for( i = 0; i < 10; i++ ){
 	    {except_t e1,e2;e1.thrown=e2.thrown=0;
 	    	value = curly_get_value_at_iterator( queue, &e2 );
-	    	if( e2.thrown ){
-	    		printf("getting value from null error \n");
-	    	}
-	    	curly_advance_iterator( queue, &e1 );
-	    	if( e1.thrown ){
+	    	if( e2.thrown ){/* we have adv iter past end of q */
 	    		break;
 	    	}
-	    	z = *(int*)value;
-	    	printf("%d \n");
-	    	assert( z == i );
+	    	curly_advance_iterator( queue, &e1 );
+	    	val = *(int*)value;
+	    	assert( val == i );
 	    } 
 	}
     /* END test case: items in queue*/
