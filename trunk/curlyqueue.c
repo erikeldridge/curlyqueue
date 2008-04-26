@@ -179,6 +179,11 @@ void curly_reset_iterator( curlyqueue_t* queue ){
 	queue->iterator = queue->back;
 }
 
+/**
+ * @throw	if iterator is currently pointing at NULL, i.e.
+ * 			trying to access iter->next would be bad
+ * 
+ */
 void curly_advance_iterator( curlyqueue_t* queue, except_t* e ){
 	
 	if( NULL == queue->iterator ){
