@@ -1,3 +1,9 @@
+#include "../curlyqueue.h"
+
+#include "assert.h"
+#include "stdlib.h"
+#include "stdio.h"
+#include "string.h"
 
 /*
 void test_case_curly_insert_before(){
@@ -84,3 +90,85 @@ void test_case_curly_insert_before(){
 	curly_destroy_queue( queue );
 }
 */
+
+void test_curly_delete_value_at_iterator() {
+	
+	curlyqueue_t* queue = curly_create_queue();
+	void* value;
+	
+	/* BEGIN: case - iter is uninitialized */
+	{except_t e;e.thrown=0;
+		curly_delete_value_at_iterator( queue, &e );
+		assert( e.thrown );
+		assert( strcmp( e.type, "null_iter" ) == 0 );
+	}
+	
+	/* BEGIN: case - q count == 1 */
+	int i = 1;
+	value = &i;
+	curly_enqueue( queue, value );
+
+	curly_reset_iterator( queue );
+	
+	{except_t e;e.thrown=0;
+		curly_delete_value_at_iterator( queue, &e );
+		
+		/* check except not thrown */
+		assert( 0 == e.thrown );
+	}
+	
+	/* chk iter set to back */
+	assert( queue->iterator == queue->back );
+	
+	/* BEGIN: case - iter points to front */
+	int j = 2;
+	value = &j;
+	curly_enqueue( queue, value );
+
+	int h = 3;
+	value = &h;
+	curly_enqueue( queue, value );
+	
+	curly_reset_iterator( queue );
+	
+	/* move iter fwd to front */
+    {except_t e;e.thrown=0;
+    	curly_advance_iterator( queue, &e );
+    }
+    
+	{except_t e;e.thrown=0;
+		curly_delete_value_at_iterator( queue, &e );
+		
+		/* check except not thrown */
+		assert( 0 == e.thrown );
+	}
+	
+	/* chk iter set to new front 
+	 * (which happens to be the back 
+	 * if only two items were in the queue)
+	 */
+	assert( queue->iterator == queue->back );
+	
+	/* BEGIN: case - iter points to back */
+	curly_reset_iterator( queue );
+	
+	{except_t e;e.thrown=0;
+		curly_delete_value_at_iterator( queue, &e );
+		
+		/* check except not thrown */
+		assert( 0 == e.thrown );
+	}
+	
+	assert( curly_queue_is_empty( queue ) );/* sanity chk */
+	
+	/* chk iterator correctly reset */
+	assert( queue->iterator == queue->back );
+	
+	curly_destroy_queue( queue );
+}
+
+void test_suite_insert_and_delete() {
+
+	test_curly_delete_value_at_iterator();
+	
+}
