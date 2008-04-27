@@ -184,7 +184,7 @@ void curly_reset_iterator( curlyqueue_t* queue ){
  * 			trying to access iter->next would be bad
  * 
  */
-void curly_advance_iterator( curlyqueue_t* queue, except_t* e ){
+void curlyqueue_iterator_step_forward( curlyqueue_t* queue, except_t* e ){
 	
 	if( NULL == queue->iterator ){
 		e->thrown = 1;
@@ -325,7 +325,6 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	
 	/* BEGIN: case - iter is uninitialized */
 	if ( NULL == queue->iterator ) {
-		write( 1, "-- case: uninit --\n", sizeof( "-- case: uninit --\n" ) );
 		/* throw */
 		e->thrown = 1;
 		memcpy( e->type, "null_iter", 10 );
@@ -335,7 +334,6 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	
 	/* BEGIN: case - q count == 1 */
 	if ( 1 == queue->count ) {
-		write( 1, "-- case: count 1 --\n", sizeof( "-- case: count 1 --\n" ) );
 		{except_t dequeue_exception;dequeue_exception.thrown=0;
 			curly_dequeue( queue, &dequeue_exception );
 		}
@@ -349,7 +347,6 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	
 	/* BEGIN: case - iter points to front */
 	else if ( queue->iterator == queue->front ) {
-		write( 1, "-- case: front --\n", sizeof( "-- case: front --\n" ) );
 		curlyqueue_node_t *old_front = queue->front;
 		curlyqueue_node_t *new_front = queue->front->prev;
 		
@@ -376,7 +373,6 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	
 	/* BEGIN: case - iter points to back */
 	else if ( queue->iterator == queue->back ) {
-		write( 1, "-- case: back --\n", sizeof( "-- case: back --\n" ) );
 		{except_t dequeue_exception;dequeue_exception.thrown=0;
 			curly_dequeue( queue, &dequeue_exception );
 		}
@@ -388,7 +384,6 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	
 	/* BEGIN: case - iter points to middle value */
 	else {
-		write( 1, "-- case: middle --\n", sizeof( "-- case: middle --\n" ) );
 		curlyqueue_node_t *prev = queue->iterator->prev;
 		curlyqueue_node_t *next = queue->iterator->next;
 		

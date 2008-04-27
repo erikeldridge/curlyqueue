@@ -138,7 +138,7 @@ void test_curly_delete_value_at_iterator() {
 	
 	/* move iter fwd to front */
     {except_t e;e.thrown=0;
-    	curly_advance_iterator( queue, &e );
+    	curlyqueue_iterator_step_forward( queue, &e );
     	
     	/* sanity chk */
     	assert( queue->iterator == queue->front );
