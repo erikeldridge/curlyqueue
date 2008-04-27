@@ -346,11 +346,13 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	/* BEGIN: case - iter points to front */
 	else if ( queue->iterator == queue->front ) {
 		
-		curlyqueue_node_t *node = queue->front;
+		curlyqueue_node_t *old_front = queue->front;
+		curlyqueue_node_t *new_front = queue->front->prev;
 		
-		queue->front = queue->front->next;
+		queue->front	= new_front;
+		new_front->next = NULL;
 		
-		free( node );
+		free( old_front );
 		
 		/* bump iterator back to new front */
 	    {except_t e2;e2.thrown=0;
@@ -359,7 +361,7 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	    	if( e2.thrown ){
 	    		/* throw */
 	    		e->thrown = 1;
-	    		memcpy( e2->type, "bwd_fail", 10 );
+	    		memcpy( e->type, e2.type, 10 );
 	    		return;
 	    	}
 	    }
