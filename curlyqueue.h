@@ -45,28 +45,48 @@ struct curlyqueue_node_t {
 
 /* BEGIN: method list */
 
+/* BEGIN: queue management */
 curlyqueue_node_t* 	curly_create_node( void* value, curlyqueue_node_t *, curlyqueue_node_t * );
 
-curlyqueue_t* 		curly_create_queue();
-void				curly_destroy_queue( curlyqueue_t* );
+curlyqueue_t*	curly_create_queue();
+void			curly_destroy_queue( curlyqueue_t* );
 
-void				curly_enqueue( curlyqueue_t* queue, void* value );
-void*				curly_dequeue( curlyqueue_t* queue, except_t* e );
+void	curly_enqueue( curlyqueue_t* queue, void* value );
+void*	curly_dequeue( curlyqueue_t* queue, except_t* e );
 
-int					curly_queue_is_empty( curlyqueue_t* );
+int	curly_queue_is_empty( curlyqueue_t* );
+/* END: queue management */
 
-void				curly_reset_iterator( curlyqueue_t* queue );
-void				curly_advance_iterator( curlyqueue_t* queue, except_t* e );
-int					curly_iterator_has_next( curlyqueue_t* queue );
+/* BEGIN: iterator */
+void curly_reset_iterator( curlyqueue_t* queue );
+void curly_advance_iterator( curlyqueue_t* queue, except_t* e );
 
-void*				curly_get_value_at_iterator( curlyqueue_t* queue, except_t* e );
-void				curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* node, void* value );
+int curly_iterator_has_next( curlyqueue_t* queue, except_t* e );
+int curly_iterator_has_prev( curlyqueue_t* queue, except_t* e );
 
+void curlyqueue_iterator_step_backward( curlyqueue_t* queue, except_t* e );
+/* END: iterator */
+
+/* BEGIN: bonus */
+void*	curly_get_value_at_iterator( curlyqueue_t* queue, except_t* e );
+void	curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e );
+void	curly_insert_before_iterator( curlyqueue_t* queue, curlyqueue_node_t* node, void* value );
+/* BEGIN: bonus */
 
 /* In the works ...
-curlyqueue_node_t*	curly_iterator_next( curlyqueue_node_t* node );
-int			curly_iterator_has_next( curlyqueue_node_t* node );
-void			curly_delete( curlyqueue_t*, curlyqueue_node_t* node );
+create
+-iter backward
+-iter set front
+-create node
+
+rename
+-iter reset -> iter set front,back
+-iter adv -> iter forward
+-curly iter fn -> curly queue iterator fn
+-private fn get leading _
+
+refactor
+-insert b4 to use iter
 */
 
 /* END: method list */
