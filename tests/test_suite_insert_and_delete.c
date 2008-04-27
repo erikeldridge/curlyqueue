@@ -1,4 +1,5 @@
 #include "../curlyqueue.h"
+#include "unit_test.h"
 
 #include "assert.h"
 #include "stdlib.h"
@@ -139,36 +140,36 @@ void test_curly_delete_value_at_iterator() {
 	{except_t e;e.thrown=0;
 		curly_delete_value_at_iterator( queue, &e );
 		
-		/* check except not thrown */
-		assert( 0 == e.thrown );
+		/* check except not thrown 
+		assert( 0 == e.thrown );*/
 	}
 	
 	/* chk iter set to new front 
 	 * (which happens to be the back 
 	 * if only two items were in the queue)
-	 */
+	 *
 	assert( queue->iterator == queue->back );
 	
-	/* BEGIN: case - iter points to back */
+	/* BEGIN: case - iter points to back 
 	curly_reset_iterator( queue );
 	
 	{except_t e;e.thrown=0;
 		curly_delete_value_at_iterator( queue, &e );
 		
-		/* check except not thrown */
+		/* check except not thrown 
 		assert( 0 == e.thrown );
 	}
 	
 	assert( curly_queue_is_empty( queue ) );/* sanity chk */
 	
-	/* chk iterator correctly reset */
+	/* chk iterator correctly reset 
 	assert( queue->iterator == queue->back );
-	
+	*/
 	curly_destroy_queue( queue );
 }
 
 void test_suite_insert_and_delete() {
 
-	test_curly_delete_value_at_iterator();
+	ADD_TEST( test_curly_delete_value_at_iterator )
 	
 }
