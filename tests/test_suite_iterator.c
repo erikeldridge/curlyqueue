@@ -13,7 +13,7 @@ void test_curly_curly_advance_iterator(){
 	/* BEGIN test case: empty queue */
 	
     {except_t e;e.thrown=0;
-    	curly_advance_iterator( queue, &e );
+    	curlyqueue_iterator_step_forward( queue, &e );
     	assert( 1 == e.thrown );
     }  
 	/* END test case: empty queue */
@@ -59,7 +59,7 @@ void test_curly_curly_advance_iterator(){
 	    	if( e2.thrown ){/* we have adv iter past end of q */
 	    		break;
 	    	}
-	    	curly_advance_iterator( queue, &e1 );
+	    	curlyqueue_iterator_step_forward( queue, &e1 );
 	    	val = *(int*)value;
 	    	/* assert that iterator is advancing correctly */
 	    	assert( val == i );
@@ -73,7 +73,7 @@ void test_curly_curly_advance_iterator(){
 	
 	for( i = 0; i < 10; i++ ){
 	    {except_t e;e.thrown=0;
-	    	curly_advance_iterator( queue, &e );
+	    	curlyqueue_iterator_step_forward( queue, &e );
 	    	if( 1 == e.thrown ){
 	    		/* assert exception is thrown at correct place */
 	    		assert( 5 == i );
@@ -213,7 +213,7 @@ void test_curly_iterator_has_next(){
 	/* BEGIN: test case - does not have next */
     /* adv iter to 4 */
     {except_t e;e.thrown=0;
-    	curly_advance_iterator( queue, &e );
+    	curlyqueue_iterator_step_forward( queue, &e );
     } 
     
     {except_t e;e.thrown=0;
@@ -273,8 +273,8 @@ void test_curly_iterator_has_prev(){
 	/* BEGIN: test case - has prev */
     /* adv iter to 3 */
     {except_t e;e.thrown=0;
-    	curly_advance_iterator( queue, &e );
-    	curly_advance_iterator( queue, &e );
+    	curlyqueue_iterator_step_forward( queue, &e );
+    	curlyqueue_iterator_step_forward( queue, &e );
     }
     
     {except_t e;e.thrown=0;
