@@ -1,4 +1,5 @@
 #include "../curlyqueue.h"
+#include "unit_test.h"
 
 #include "assert.h"
 #include "stdlib.h"
@@ -89,6 +90,7 @@ void test_curly_curly_advance_iterator(){
 void test_curlyqueue_iterator_step_backward(){
 	
 	curlyqueue_t* queue = curly_create_queue();
+	void* value;
 	
 	/* BEGIN: case: iter is null */
 	{except_t e;e.thrown=0;
@@ -285,10 +287,10 @@ void test_curly_iterator_has_prev(){
 
 void test_suite_iterator() {
 
-	test_curly_get_value_at_iterator();
-	test_curly_curly_advance_iterator();
-	test_curlyqueue_iterator_step_backward();
-	test_curly_iterator_has_next();
-	test_curly_iterator_has_prev();
+	ADD_TEST( test_curly_get_value_at_iterator )
+	ADD_TEST( test_curly_curly_advance_iterator )
+	ADD_TEST( test_curlyqueue_iterator_step_backward )
+	ADD_TEST( test_curly_iterator_has_next )
+	ADD_TEST( test_curly_iterator_has_prev )
 	
 }
