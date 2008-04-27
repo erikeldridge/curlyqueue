@@ -1,5 +1,5 @@
 #include "../curlyqueue.h"
-#include "unit_test.h"
+#include "unit_test_util.h"
 
 #include "assert.h"
 #include "stdlib.h"
