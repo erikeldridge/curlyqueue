@@ -325,6 +325,7 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	
 	/* BEGIN: case - iter is uninitialized */
 	if ( NULL == queue->iterator ) {
+		write( 1, "-- case: uninit --\n", sizeof( "-- case: uninit --\n" ) );
 		/* throw */
 		e->thrown = 1;
 		memcpy( e->type, "null_iter", 10 );
@@ -334,18 +335,21 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	
 	/* BEGIN: case - q count == 1 */
 	if ( 1 == queue->count ) {
+		write( 1, "-- case: count 1 --\n", sizeof( "-- case: count 1 --\n" ) );
 		{except_t dequeue_exception;dequeue_exception.thrown=0;
 			curly_dequeue( queue, &dequeue_exception );
 		}
 		
 		/* dedangle iterator */
 		curly_reset_iterator( queue );
+		
+		return;
 	}
 	/* END: case - q count == 1 */
 	
 	/* BEGIN: case - iter points to front */
 	else if ( queue->iterator == queue->front ) {
-		
+		write( 1, "-- case: front --\n", sizeof( "-- case: front --\n" ) );
 		curlyqueue_node_t *old_front = queue->front;
 		curlyqueue_node_t *new_front = queue->front->prev;
 		
@@ -353,6 +357,8 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 		new_front->next = NULL;
 		
 		free( old_front );
+		
+		queue->count--;
 		
 		/* bump iterator back to new front */
 	    {except_t e2;e2.thrown=0;
@@ -370,7 +376,7 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	
 	/* BEGIN: case - iter points to back */
 	else if ( queue->iterator == queue->back ) {
-		
+		write( 1, "-- case: back --\n", sizeof( "-- case: back --\n" ) );
 		{except_t dequeue_exception;dequeue_exception.thrown=0;
 			curly_dequeue( queue, &dequeue_exception );
 		}
@@ -382,6 +388,7 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	
 	/* BEGIN: case - iter points to middle value */
 	else {
+		write( 1, "-- case: middle --\n", sizeof( "-- case: middle --\n" ) );
 		curlyqueue_node_t *prev = queue->iterator->prev;
 		curlyqueue_node_t *next = queue->iterator->next;
 		
