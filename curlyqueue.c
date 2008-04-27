@@ -136,7 +136,7 @@ void* curly_dequeue( curlyqueue_t* queue, except_t* e ){
 
 		/* dedangle pointers */
 		queue->front	= NULL;
-		queue->back	= NULL;
+		queue->back		= NULL;
 
 	}else{
 		curlyqueue_node_t* old_front	= queue->front;
@@ -196,6 +196,29 @@ void curly_advance_iterator( curlyqueue_t* queue, except_t* e ){
 }
 
 /**
+ * Moves the iterator backward one item
+ * @throws	null_iter	if q iterator is null, which can happen
+ * 						if it has not yet been init'd, or if
+ * 						q is empty
+ */
+void curlyqueue_iterator_step_backward( curlyqueue_t* queue, except_t* e ){
+	
+	/* BEGIN: case: iter is null */
+	if( NULL == queue->iterator ){
+		e->thrown = 1;
+		memcpy( e->type, "null_iter", 10 );
+		return;
+	}
+	/* END: case: iter is null */
+	
+	/* BEGIN: case: iter not null */
+	
+	queue->iterator = queue->iterator->prev; 
+	
+	/* END: case: iter not null */
+}
+
+/**
  * Get the value at the point in the queue indicated by the iterator
  */
 void* curly_get_value_at_iterator( curlyqueue_t* queue, except_t* e ){
@@ -208,13 +231,74 @@ void* curly_get_value_at_iterator( curlyqueue_t* queue, except_t* e ){
 	
 	return queue->iterator->value;
 }
+
+/**
+ * Tests if the current list element pointed at by the iterator has 
+ * an element after it
+ * @throws	empty_q		if queue is empty
+ * @throws	null_iter	if iterator is null (use iter_reset to fix if q 
+ * 						is non-empty)
+ * @return	0	if queue does not have next
+ * @return	1	if queue does have next
+ * @see	curly_iterator_has_prev
+ */
+int curly_iterator_has_next( curlyqueue_t* queue, except_t* e ) {
+	if( curly_queue_is_empty( queue ) ){
+		/* throw */
+		e->thrown = 1;
+		memcpy( e->type, "empty_q", 10 );
+		return -1;
+	} else if( NULL == queue->iterator ){
+		/* throw */
+		e->thrown = 1;
+		memcpy( e->type, "null_iter", 10 );
+		return -1;
+	}
+	
+	if( NULL == queue->iterator->next ) {
+		return 0;
+	} else {
+		return 1;
+	}
+}
+
+/**
+ * Tests if the current list element pointed at by the iterator has 
+ * an element before it
+ * @throws	empty_q		if queue is empty
+ * @throws	null_iter	if iterator is null (use iter_reset to fix if q 
+ * 						is non-empty)
+ * @return	0	if queue does not have prev
+ * @return	1	if queue does have prev
+ * @see	curly_iterator_has_next
+ */
+int curly_iterator_has_prev( curlyqueue_t* queue, except_t* e ) {
+	if( curly_queue_is_empty( queue ) ){
+		/* throw */
+		e->thrown = 1;
+		memcpy( e->type, "empty_q", 10 );
+		return -1;
+	} else if( NULL == queue->iterator ){
+		/* throw */
+		e->thrown = 1;
+		memcpy( e->type, "null_iter", 10 );
+		return -1;
+	}
+	
+	if( NULL == queue->iterator->prev ) {
+		return 0;
+	} else {
+		return 1;
+	}
+}
+
 /**
  * Inserts a value into the q at the position before the node pointed at by the marker
  * @post	Mem has been allocated for a new node, a node was created,and the 
  * 		value is now in the queue
  * @note	The calling function is responsible for freeing the memory allocated
  */
-void curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* marker, void* value ){
+void curly_insert_before_iterator( curlyqueue_t* queue, curlyqueue_node_t* marker, void* value ){
 	
 
 	if( curly_queue_is_empty( queue ) || ( marker == queue->back ) ){
@@ -224,7 +308,6 @@ void curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* marker, void* 
 	} else {
 
 		curlyqueue_node_t* prev = marker->prev;
-		curlyqueue_node_t* next = marker;
 
 		curlyqueue_node_t* node = curly_create_node( value, prev, marker );
 
@@ -235,9 +318,89 @@ void curly_insert_before( curlyqueue_t* queue, curlyqueue_node_t* marker, void* 
 	}
 }
 
-void curly_delete( curlyqueue_t* queue, curlyqueue_node_t* node ){
-
-//	if( DEBUG ){ printf("  END: deletevalue \n"); }
+/**
+ * @throws	null_iter	if iterator is not set to an element
+ */
+void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
+	
+	/* BEGIN: case - iter is uninitialized */
+	if ( NULL == queue->iterator ) {
+		/* throw */
+		e->thrown = 1;
+		memcpy( e->type, "null_iter", 10 );
+		return;
+	}
+	/* END: case - iter is uninitialized */
+	
+	/* BEGIN: case - q count == 1 */
+	if ( 1 == queue->count ) {
+		{except_t dequeue_exception;dequeue_exception.thrown=0;
+			curly_dequeue( queue, &dequeue_exception );
+		}
+		
+		/* dedangle iterator */
+		curly_reset_iterator( queue );
+	}
+	/* END: case - q count == 1 */
+	
+	/* BEGIN: case - iter points to front */
+	else if ( queue->iterator == queue->front ) {
+		
+		curlyqueue_node_t *node = queue->front;
+		
+		queue->front = queue->front->next;
+		
+		free( node );
+		
+		/* bump iterator back to new front */
+	    {except_t e2;e2.thrown=0;
+	    	curlyqueue_iterator_step_backward( queue, &e2 );
+	    	
+	    	if( e2.thrown ){
+	    		/* throw */
+	    		e->thrown = 1;
+	    		memcpy( e2->type, "bwd_fail", 10 );
+	    		return;
+	    	}
+	    }
+	}
+	/* END: case - iter points to front */
+	
+	/* BEGIN: case - iter points to back */
+	else if ( queue->iterator == queue->back ) {
+		
+		{except_t dequeue_exception;dequeue_exception.thrown=0;
+			curly_dequeue( queue, &dequeue_exception );
+		}
+		
+		/* dedangle iterator */
+		curly_reset_iterator( queue );
+	}
+	/* END: case - iter points to back */
+	
+	/* BEGIN: case - iter points to middle value */
+	else {
+		curlyqueue_node_t *prev = queue->iterator->prev;
+		curlyqueue_node_t *next = queue->iterator->next;
+		
+		free( queue->iterator );
+		
+		prev->next = next;
+		next->prev = prev;
+		
+	    {except_t step_back_e;step_back_e.thrown=0;
+	    	curlyqueue_iterator_step_backward( queue, &step_back_e );
+	    	
+	    	if( step_back_e.thrown ){
+	    		/* throw */
+	    		e->thrown = 1;
+	    		memcpy( e->type, step_back_e.type, 10 );
+	    		return;
+	    	}
+	    }
+	}
+	/* END: case - iter points to middle value */
+	
 }
 
 
