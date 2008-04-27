@@ -99,6 +99,7 @@ void test_curly_delete_value_at_iterator() {
 	
 	/* BEGIN: case - iter is uninitialized */
 	{except_t e;e.thrown=0;
+		write( 1, "-- suite case: uninit --\n", sizeof( "-- suite case: uninit --\n" ) );
 		curly_delete_value_at_iterator( queue, &e );
 		assert( e.thrown );
 		assert( strcmp( e.type, "null_iter" ) == 0 );
@@ -112,6 +113,7 @@ void test_curly_delete_value_at_iterator() {
 	curly_reset_iterator( queue );
 	
 	{except_t e;e.thrown=0;
+		write( 1, "-- suite case: 1 --\n", sizeof( "-- suite case: 1 --\n") );
 		curly_delete_value_at_iterator( queue, &e );
 		
 		/* check except not thrown */
@@ -132,39 +134,48 @@ void test_curly_delete_value_at_iterator() {
 	
 	curly_reset_iterator( queue );
 	
+	assert( 3 == *(int*)queue->iterator->value );/* sanity chk */
+	
 	/* move iter fwd to front */
     {except_t e;e.thrown=0;
     	curly_advance_iterator( queue, &e );
+    	
+    	/* sanity chk */
+    	assert( queue->iterator == queue->front );
+    	assert( 2 == *(int*)queue->iterator->value );
     }
     
 	{except_t e;e.thrown=0;
+		write( 1, "-- suite case: front --\n", sizeof( "-- suite case: front --\n" ) );
 		curly_delete_value_at_iterator( queue, &e );
 		
-		/* check except not thrown 
-		assert( 0 == e.thrown );*/
+		/* check except not thrown */
+		assert( 0 == e.thrown );
 	}
 	
 	/* chk iter set to new front 
 	 * (which happens to be the back 
 	 * if only two items were in the queue)
-	 *
+	 */
 	assert( queue->iterator == queue->back );
 	
-	/* BEGIN: case - iter points to back 
+	/* BEGIN: case - iter points to back */
 	curly_reset_iterator( queue );
 	
 	{except_t e;e.thrown=0;
+		write( 1, "-- suite case: back --\n", sizeof( "-- suite case: back --\n" ) );
+		assert( queue->count == 1);
 		curly_delete_value_at_iterator( queue, &e );
 		
-		/* check except not thrown 
+		/* check except not thrown */
 		assert( 0 == e.thrown );
 	}
 	
 	assert( curly_queue_is_empty( queue ) );/* sanity chk */
 	
-	/* chk iterator correctly reset 
+	/* chk iterator correctly reset */
 	assert( queue->iterator == queue->back );
-	*/
+	
 	curly_destroy_queue( queue );
 }
 
