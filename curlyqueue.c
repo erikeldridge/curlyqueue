@@ -171,11 +171,16 @@ int curly_queue_is_empty( curlyqueue_t* queue ){
 }
 
 /**
- * \note
- * You should call this before every iterator walk
- * to obtain predictable results
+ * Point the iterator at the back of the list
  */
-void curly_reset_iterator( curlyqueue_t* queue ){
+void curlyqueue_iterator_jump_to_back( curlyqueue_t* queue ){
+	queue->iterator = queue->back;
+}
+
+/**
+ * Point the iterator at the front of the list
+ */
+void curlyqueue_iterator_jump_to_front( curlyqueue_t* queue ){
 	queue->iterator = queue->back;
 }
 
@@ -293,35 +298,91 @@ int curly_iterator_has_prev( curlyqueue_t* queue, except_t* e ) {
 }
 
 /**
- * Inserts a value into the q at the position before the node pointed at by the marker
- * @post	Mem has been allocated for a new node, a node was created,and the 
- * 		value is now in the queue
+ * Inserts a value into the q at the position before the node pointed 
+ * at by the iter.
+ * @post	Mem has been allocated for a new node
+ * @post	a node was created,and the value is now in queue 
+ * @post	the q iter points at the enew node
  * @note	The calling function is responsible for freeing the memory allocated
+ * @throws	null_iter	if iter is null
  */
-void curly_insert_before_iterator( curlyqueue_t* queue, curlyqueue_node_t* marker, void* value ){
+void curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value ){
 	
-
-	if( curly_queue_is_empty( queue ) || ( marker == queue->back ) ){
-
-		curly_enqueue( queue, value );
-
-	} else {
-
-		curlyqueue_node_t* prev = marker->prev;
-
-		curlyqueue_node_t* node = curly_create_node( value, prev, marker );
-
-		marker->prev->next	= node;
-		marker->prev	 	= node;
-
-		queue->count++;
+	/* BEGIN: case - q empty */
+	if ( NULL == queue->iterator ) {
+		/* throw */
+		e->thrown = 1;
+		memcpy( e->type, "null_iter", 10 );
+		return;
 	}
+	
+	/* BEGIN: case - count == 1 or iter == back */
+	if ( ( 1 == queue->count ) || ( queue->iterator == queue->back ) ) {
+		/* remember, enq adds element & sets queue->back */
+		enqueue( queue, value );
+	}
+	/* END: case - count == 1 or iter == back */
+	
+	/* BEGIN: case - iter points to front */
+	else {
+		
+		/* if iter != back, & count > 1, iter must have prev */
+		curlyqueue_node_t* prev = queue->iterator->prev;
+	
+		curlyqueue_node_t* next = queue->iterator;
+				
+		curlyqueue_node_t* node = curly_create_node( queue, prev, next );
+		
+		queue->count++;
+		
+		queue->iterator = node;
+	}
+}
+
+/**
+ * Insert the given value after the item pointed at by the q iterator
+ */
+void curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value ){
+
+	/* BEGIN: case - q empty */
+	if ( NULL == queue->iterator ) {
+		/* throw */
+		e->thrown = 1;
+		memcpy( e->type, "null_iter", 10 );
+		return;
+	}
+	/* END: case - q empty */
+	
+	/* BEGIN: case - count == 1 or iter points to front */
+	if ( ( 1 == queue->count ) || ( queue->iterator == queue->front ) ) {
+		curlyqueue_node_t* prev = queue->iterator;
+		curlyqueue_node_t* next = NULL;
+		curlyqueue_node_t* node = curly_create_node( queue, prev, next );	
+		queue->iterator->next	= node;	
+		queue->front			= node;
+		queue->count++;		
+		queue->iterator = node;
+	}
+	
+	/* BEGIN: case - iter points to back */
+	else {
+		curlyqueue_node_t* prev = queue->iterator;
+		curlyqueue_node_t* next = queue->iterator->next;
+		curlyqueue_node_t* node = curly_create_node( queue, prev, next );
+		
+		queue->iterator->next->prev = node;
+		queue->iterator->next		= node;
+		queue->iterator				= node;
+		
+		queue->count++;		
+	}
+	/* BEGIN: case - iter points to middle */
 }
 
 /**
  * @throws	null_iter	if iterator is not set to an element
  */
-void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
+void curlyqueue_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	
 	/* BEGIN: case - iter is uninitialized */
 	if ( NULL == queue->iterator ) {
@@ -339,7 +400,7 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 		}
 		
 		/* dedangle iterator */
-		curly_reset_iterator( queue );
+		curlyqueue_iterator_jump_to_back( queue );
 		
 		return;
 	}
@@ -378,7 +439,7 @@ void curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 		}
 		
 		/* dedangle iterator */
-		curly_reset_iterator( queue );
+		curlyqueue_iterator_jump_to_back( queue );
 	}
 	/* END: case - iter points to back */
 	
