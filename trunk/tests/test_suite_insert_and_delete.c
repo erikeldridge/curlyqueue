@@ -223,7 +223,74 @@ void test_curlyqueue_insert_value_before_iterator() {
 	}
 	assert( 7 == *(int*)queue->iterator->value );
 	
-	/* BEGIN: case - iter points to middle or front */
+	/* BEGIN: case - iter points to middle */
+	
+	int k = 9;
+	value = &k;
+	
+	curly_enqueue( queue, value );
+	
+	int l = 10;
+	value = &l;
+	
+	curly_enqueue( queue, value );
+	
+	curlyqueue_iterator_jump_to_back( queue );
+	
+	/* step forward to somewhere between back and front */
+	{except_t e;e.thrown=0;
+		curlyqueue_iterator_step_forward( queue, &e );
+		curlyqueue_iterator_step_forward( queue, &e );
+	}
+	
+	/* sanity chk */
+	{except_t e;e.thrown=0;
+		int val = *(int*)curly_get_value_at_iterator( queue, &e );
+		assert( 8 == val );
+	}
+	
+	/* take a snapshot of the iterator */
+	curlyqueue_node_t* iterator_snapshot = queue->iterator;
+	
+	/* value to insert */
+	int m = 11;
+	value = &m;
+	
+	{except_t e;e.thrown=0;
+		curlyqueue_insert_value_before_iterator( queue, value, &e );
+	}
+						
+	/* chk that iter hasn't changed */
+	assert( queue->iterator == iterator_snapshot );
+	
+	/* chk iter next is new value */
+	{except_t e;e.thrown=0;/* ignored */
+		curlyqueue_iterator_step_backward( queue, &e );
+		int val = *(int*)curly_get_value_at_iterator( queue, &e );
+		assert( 11 == val );
+	}
+	/* BEGIN: walk list, printing values 
+	curlyqueue_iterator_jump_to_back( queue );
+	int val;
+	{except_t e;e.thrown=0;//controlled test, so ignore
+	
+		//print all values except front
+		while( curly_iterator_has_next( queue, &e ) ){
+	
+				val = *(int*)curly_get_value_at_iterator( queue, &e );	
+				
+				printf("val: %d \n", val );
+				
+				curlyqueue_iterator_step_forward( queue, &e );
+		}
+		
+		//print front value
+		val = *(int*)curly_get_value_at_iterator( queue, &e );	
+		
+		printf("val: %d \n", val );
+	}
+	/* END: walk list, printing values */
+	
 	curly_destroy_queue( queue );
 }
 
