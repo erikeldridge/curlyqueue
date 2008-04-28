@@ -180,11 +180,20 @@ void test_curly_delete_value_at_iterator() {
 }
 
 void test_curlyqueue_insert_value_before_iterator() {
-	
+//	curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value, except_t* e );
+
 	curlyqueue_t* queue = curly_create_queue();
 	void* value;
 	
+	int i = 7;
+	value = & i;
+	
 	/* BEGIN: case - q empty */
+	{except_t e;e.thrown=0;
+		curlyqueue_insert_value_before_iterator( queue, value, &e );
+		assert( e.thrown );
+		assert( strcmp( e.type, "null_iter" ) == 0 );
+	}
 	/* BEGIN: case - count == 1 or iter == back */
 	/* BEGIN: case - iter points to front */
 	curly_destroy_queue( queue );
