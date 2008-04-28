@@ -269,6 +269,29 @@ void test_curlyqueue_insert_value_before_iterator() {
 		int val = *(int*)curly_get_value_at_iterator( queue, &e );
 		assert( 11 == val );
 	}
+	
+	/* BEGIN: test inserting before front in list w/ > 1 elem */
+	
+	curlyqueue_iterator_jump_to_front( queue );
+	
+	int n = 12;
+	value = &n;
+	
+	{except_t e;e.thrown=0;
+	
+		curlyqueue_insert_value_before_iterator( queue, value, &e );
+		assert( 0 == e.thrown );/* for sanity */
+	
+		curlyqueue_iterator_step_backward( queue, &e );
+		assert( 0 == e.thrown );
+			
+		int val = *(int*)curly_get_value_at_iterator( queue, &e );
+		assert( 0 == e.thrown );
+		
+		assert( 12 == val );
+	}
+	/* END: test inserting before front in list w/ > 1 elem */
+	
 	/* BEGIN: walk list, printing values 
 	curlyqueue_iterator_jump_to_back( queue );
 	int val;
