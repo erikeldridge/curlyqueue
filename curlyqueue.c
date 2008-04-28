@@ -15,7 +15,7 @@ struct iterator_t {
  * 		and node field values have been assigned
  * @note	calling fn must free mem!
  */
-curlyqueue_node_t* curly_create_node( void* value, curlyqueue_node_t* prev, curlyqueue_node_t* next ){
+curlyqueue_node_t* curlyqueue_create_node( void* value, curlyqueue_node_t* prev, curlyqueue_node_t* next ){
 	
 	curlyqueue_node_t* node = ( curlyqueue_node_t* )malloc( sizeof( curlyqueue_node_t ) );
 	
@@ -33,7 +33,7 @@ curlyqueue_node_t* curly_create_node( void* value, curlyqueue_node_t* prev, curl
  * 		null (if pointers) or zero (if count)
  * @note	calling fn must free mem!
  */
-curlyqueue_t* curly_create_queue(){
+curlyqueue_t* curlyqueue_create_queue(){
 	
 	curlyqueue_t* queue = malloc( sizeof( struct curlyqueue_t ) );
 	
@@ -53,7 +53,7 @@ curlyqueue_t* curly_create_queue(){
  * @post	the list manager's pointers are set to null
  * @post	the list manager's count is decremented for each freed node
  */
-void curly_destroy_queue( curlyqueue_t* queue ){
+void curlyqueue_destroy_queue( curlyqueue_t* queue ){
 	
 	/**
 	 the current node
@@ -94,12 +94,12 @@ void curly_destroy_queue( curlyqueue_t* queue ){
  * 			remembering if the iter was initalized or not,ie to avoid
  * 			the possibility of a null iter if there are items in list)
  */
-void curly_enqueue( curlyqueue_t* queue, void* value ){
+void curlyqueue_enqueue( curlyqueue_t* queue, void* value ){
 	
 	curlyqueue_node_t* prev = NULL;
 	curlyqueue_node_t* next = queue->back;
 	
-	curlyqueue_node_t* node = curly_create_node( value, prev, next );
+	curlyqueue_node_t* node = curlyqueue_create_node( value, prev, next );
 	
 	/* if this is the first node, the tail = the head*/
 	if( curly_queue_is_empty( queue ) ){
@@ -124,7 +124,7 @@ void curly_enqueue( curlyqueue_t* queue, void* value ){
 /**
  * @except	throws "empty_q" exception if q is empty
  */
-void* curly_dequeue( curlyqueue_t* queue, except_t* e ){
+void* curlyqueue_dequeue( curlyqueue_t* queue, except_t* e ){
 	
 	if( curly_queue_is_empty( queue ) ){
 		/* throw exception */
@@ -232,7 +232,7 @@ void curlyqueue_iterator_step_backward( curlyqueue_t* queue, except_t* e ){
 /**
  * Get the value at the point in the queue indicated by the iterator
  */
-void* curly_get_value_at_iterator( curlyqueue_t* queue, except_t* e ){
+void* curlyqueue_get_value_at_iterator( curlyqueue_t* queue, except_t* e ){
 	if( NULL == queue->iterator ){
 		/* throw */
 		e->thrown = 1;
@@ -325,7 +325,7 @@ void curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value, 
 	/* BEGIN: case - count == 1 or iter == back */
 	if ( ( 1 == queue->count ) || ( queue->iterator == queue->back ) ) {
 		/* remember, enq adds element & sets queue->back */
-		curly_enqueue( queue, value );
+		curlyqueue_enqueue( queue, value );
 	}
 	/* END: case - count == 1 or iter == back */
 	
@@ -336,7 +336,7 @@ void curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value, 
 		/* if iter != back, & count > 1, iter must have prev */
 		curlyqueue_node_t* prev = queue->iterator->prev;	
 		curlyqueue_node_t* next = queue->iterator;				
-		curlyqueue_node_t* node = curly_create_node( value, prev, next );
+		curlyqueue_node_t* node = curlyqueue_create_node( value, prev, next );
 		
 		/* insert node in list */
 		prev->next = node;
@@ -366,7 +366,7 @@ void curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value, e
 		/* create node */
 		curlyqueue_node_t* prev = queue->iterator;
 		curlyqueue_node_t* next = queue->iterator->next;
-		curlyqueue_node_t* node = curly_create_node( value, prev, next );	
+		curlyqueue_node_t* node = curlyqueue_create_node( value, prev, next );	
 		
 		/* insert it and update q front ptr */
 		prev->next		= node;	
@@ -382,7 +382,7 @@ void curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value, e
 		/* create node */
 		curlyqueue_node_t* prev = queue->iterator;
 		curlyqueue_node_t* next = queue->iterator->next;
-		curlyqueue_node_t* node = curly_create_node( value, prev, next );
+		curlyqueue_node_t* node = curlyqueue_create_node( value, prev, next );
 		
 		/* insert it */
 		prev->next = node;
@@ -409,7 +409,7 @@ void curlyqueue_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	/* BEGIN: case - q count == 1 */
 	if ( 1 == queue->count ) {
 		{except_t dequeue_exception;dequeue_exception.thrown=0;
-			curly_dequeue( queue, &dequeue_exception );
+			curlyqueue_dequeue( queue, &dequeue_exception );
 		}
 		
 		/* dedangle iterator */
@@ -448,7 +448,7 @@ void curlyqueue_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 	/* BEGIN: case - iter points to back */
 	else if ( queue->iterator == queue->back ) {
 		{except_t dequeue_exception;dequeue_exception.thrown=0;
-			curly_dequeue( queue, &dequeue_exception );
+			curlyqueue_dequeue( queue, &dequeue_exception );
 		}
 		
 		/* dedangle iterator */

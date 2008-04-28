@@ -8,7 +8,7 @@
 
 void test_curly_delete_value_at_iterator() {
 	
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	void* value;
 	
 	/* BEGIN: case - iter is uninitialized */
@@ -21,7 +21,7 @@ void test_curly_delete_value_at_iterator() {
 	/* BEGIN: case - q count == 1 */
 	int i = 1;
 	value = &i;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 
 	curlyqueue_iterator_jump_to_back( queue );
 	
@@ -39,11 +39,11 @@ void test_curly_delete_value_at_iterator() {
 	/* BEGIN: case - iter points to front */
 	int j = 2;
 	value = &j;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 
 	int h = 3;
 	value = &h;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	curlyqueue_iterator_jump_to_back( queue );
 	
@@ -89,13 +89,13 @@ void test_curly_delete_value_at_iterator() {
 	/* chk iterator correctly reset */
 	assert( queue->iterator == queue->back );
 	
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 void test_curlyqueue_insert_value_before_iterator() {
 //	curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value, except_t* e );
 
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	void* value;
 	
 	int i = 7;
@@ -109,7 +109,7 @@ void test_curlyqueue_insert_value_before_iterator() {
 	}
 	
 	/* BEGIN: case - count == 1 or iter == back */
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	int j = 8;
 	value = &j;
@@ -141,12 +141,12 @@ void test_curlyqueue_insert_value_before_iterator() {
 	int k = 9;
 	value = &k;
 	
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	int l = 10;
 	value = &l;
 	
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	curlyqueue_iterator_jump_to_back( queue );
 	
@@ -158,7 +158,7 @@ void test_curlyqueue_insert_value_before_iterator() {
 	
 	/* sanity chk */
 	{except_t e;e.thrown=0;
-		int val = *(int*)curly_get_value_at_iterator( queue, &e );
+		int val = *(int*)curlyqueue_get_value_at_iterator( queue, &e );
 		assert( 8 == val );
 	}
 	
@@ -179,7 +179,7 @@ void test_curlyqueue_insert_value_before_iterator() {
 	/* chk iter next is new value */
 	{except_t e;e.thrown=0;/* ignored */
 		curlyqueue_iterator_step_backward( queue, &e );
-		int val = *(int*)curly_get_value_at_iterator( queue, &e );
+		int val = *(int*)curlyqueue_get_value_at_iterator( queue, &e );
 		assert( 11 == val );
 	}
 	
@@ -198,7 +198,7 @@ void test_curlyqueue_insert_value_before_iterator() {
 		curlyqueue_iterator_step_backward( queue, &e );
 		assert( 0 == e.thrown );
 			
-		int val = *(int*)curly_get_value_at_iterator( queue, &e );
+		int val = *(int*)curlyqueue_get_value_at_iterator( queue, &e );
 		assert( 0 == e.thrown );
 		
 		assert( 12 == val );
@@ -213,7 +213,7 @@ void test_curlyqueue_insert_value_before_iterator() {
 		//print all values except front
 		while( curlyqueue_iterator_has_next( queue, &e ) ){
 	
-				val = *(int*)curly_get_value_at_iterator( queue, &e );	
+				val = *(int*)curlyqueue_get_value_at_iterator( queue, &e );	
 				
 				printf("val: %d \n", val );
 				
@@ -221,19 +221,19 @@ void test_curlyqueue_insert_value_before_iterator() {
 		}
 		
 		//print front value
-		val = *(int*)curly_get_value_at_iterator( queue, &e );	
+		val = *(int*)curlyqueue_get_value_at_iterator( queue, &e );	
 		
 		printf("val: %d \n", val );
 	}
 	/* END: walk list, printing values */
 	
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 /* BEGIN: testing insert_after_iter */
 void case_insert_value_after_iterator_in_empty_list(){
 	
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	
 	void* value;
 	
@@ -246,19 +246,19 @@ void case_insert_value_after_iterator_in_empty_list(){
 		assert( strcmp( e.type, "null_iter" ) == 0 );
 	}
 	
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 void case_insert_value_after_iterator_with_single_elem_in_list(){
 	
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	
 	void* value;
 	
 	int i = 0;
 	value = &i;
 	
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	curlyqueue_node_t* old_front = queue->front;
 	
@@ -277,12 +277,12 @@ void case_insert_value_after_iterator_with_single_elem_in_list(){
 	/* chk q back == old front */
 	assert( queue->back == old_front );
 	
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 void case_insert_value_after_non_front_iter_with_multi_elem_list(){
 	
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	
 	void* value;
 	
@@ -291,7 +291,7 @@ void case_insert_value_after_non_front_iter_with_multi_elem_list(){
 	int i;
 	for( i = 0; i < 5; i++ ){
 		value = (void*)&values[i];
-		curly_enqueue( queue, value );
+		curlyqueue_enqueue( queue, value );
 	}
 	
 	/* now, test for correct insertion behavior */
@@ -317,7 +317,7 @@ void case_insert_value_after_non_front_iter_with_multi_elem_list(){
 		curlyqueue_iterator_step_forward( queue, &e );
 		assert( 0 == e.thrown );
 		
-		int val = *(int*)curly_get_value_at_iterator( queue, &e );
+		int val = *(int*)curlyqueue_get_value_at_iterator( queue, &e );
 		assert( 6 == val );		
 	}
 	
@@ -329,7 +329,7 @@ void case_insert_value_after_non_front_iter_with_multi_elem_list(){
 		//print all values except front
 		while( curlyqueue_iterator_has_next( queue, &e ) ){
 				
-				val = *(int*)curly_get_value_at_iterator( queue, &e );	
+				val = *(int*)curlyqueue_get_value_at_iterator( queue, &e );	
 				
 				printf("val: %d \n", val );
 				
@@ -339,7 +339,7 @@ void case_insert_value_after_non_front_iter_with_multi_elem_list(){
 		}
 		
 		//print front value
-		val = *(int*)curly_get_value_at_iterator( queue, &e );	
+		val = *(int*)curlyqueue_get_value_at_iterator( queue, &e );	
 		assert( 0 == e.thrown );
 		
 		printf("val: %d \n", val );
@@ -348,7 +348,7 @@ void case_insert_value_after_non_front_iter_with_multi_elem_list(){
 	
 	
 	
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 void test_curlyqueue_insert_value_after_iterator(){

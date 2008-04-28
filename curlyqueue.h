@@ -48,11 +48,11 @@ struct curlyqueue_node_t {
 /* BEGIN: queue management */
 curlyqueue_node_t* 	curlyqueue_create_node( void* value, curlyqueue_node_t *, curlyqueue_node_t * );
 
-curlyqueue_t*	curly_create_queue();
-void			curly_destroy_queue( curlyqueue_t* );
+curlyqueue_t*	curlyqueue_create_queue();
+void			curlyqueue_destroy_queue( curlyqueue_t* );
 
-void	curly_enqueue( curlyqueue_t* queue, void* value );
-void*	curly_dequeue( curlyqueue_t* queue, except_t* e );
+void	curlyqueue_enqueue( curlyqueue_t* queue, void* value );
+void*	curlyqueue_dequeue( curlyqueue_t* queue, except_t* e );
 
 int	curly_queue_is_empty( curlyqueue_t* );
 /* END: queue management */
