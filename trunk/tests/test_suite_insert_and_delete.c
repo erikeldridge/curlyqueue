@@ -194,13 +194,39 @@ void test_curlyqueue_insert_value_before_iterator() {
 		assert( e.thrown );
 		assert( strcmp( e.type, "null_iter" ) == 0 );
 	}
+	
 	/* BEGIN: case - count == 1 or iter == back */
-	/* BEGIN: case - iter points to front */
+	curly_enqueue( queue, value );
+	
+	int j = 8;
+	value = &j;
+	
+	{except_t e;e.thrown=0;
+		curlyqueue_insert_value_before_iterator( queue, value, &e );
+		assert( 0 == e.thrown );
+	}
+	
+	/* chk if back == new value */
+	assert( 8 == *(int*)queue->back->value );
+	
+	/* chk if iter points to back (for sanity; this 
+	 * should be ensured by enqueue() tests )
+	 */
+	assert( queue->iterator == queue->back );
+	
+	/* for kicks, roll iter fwd and check value */
+	{except_t e;e.thrown=0;
+		curlyqueue_iterator_step_forward( queue, &e );
+	}
+	assert( 7 == *(int*)queue->iterator->value );
+	
+	/* BEGIN: case - iter points to middle or front */
 	curly_destroy_queue( queue );
 }
 
 void test_suite_insert_and_delete() {
 
 	ADD_TEST( test_curly_delete_value_at_iterator )
+	ADD_TEST( test_curlyqueue_insert_value_before_iterator )
 	
 }
