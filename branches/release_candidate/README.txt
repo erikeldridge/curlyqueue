@@ -57,28 +57,27 @@ in the curlyqueue-x.x.x directory
 
 int main(){
 
-        /* create a queue */
-        curlyqueue_t* queue = curly_create_queue();
+        // create a queue 
+        curlyqueue_t* queue = curlyqueue_create_queue();
 
-        /* put something in it */
+        // put something in it
         int i = 100;
         void *value = &i; 
 
-        curly_enqueue( queue, value );
+        curlyqueue_enqueue( queue, value );
 
-        /* pop it back out. */
+        // pop it back out.
         {except_t e;e.thrown=0;
-                value = curly_dequeue( queue, &e );
-                /* assume no exception thrown 
-                 * Note: the docs give info on except_t 
-                 */
+                value = curlyqueue_dequeue( queue, &e );
+                //assume no exception thrown 
+                //Note: the docs give info on except_t
         }   
 
-        /* print it */
+        // print it
         printf( "%d \n", *(int *)value );
 
-        /* kill the queue */
-        curly_destroy_queue( queue );
+        // kill the queue
+        curlyqueue_destroy_queue( queue );
 
         return 0;
 
