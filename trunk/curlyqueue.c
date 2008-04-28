@@ -118,6 +118,7 @@ void curlyqueue_enqueue( curlyqueue_t* queue, void* value ){
 }
 
 /**
+ * Pops value of front of q and returns a void pointer to it
  * @except	throws "empty_q" exception if q is empty
  */
 void* curlyqueue_dequeue( curlyqueue_t* queue, except_t* e ){
@@ -187,6 +188,7 @@ void curlyqueue_iterator_jump_to_front( curlyqueue_t* queue ){
 }
 
 /**
+ * Advances the queue iterator forward one element
  * @throw	if iterator is currently pointing at NULL, i.e.
  * 			trying to access iter->next would be bad
  * 
@@ -226,7 +228,7 @@ void curlyqueue_iterator_step_backward( curlyqueue_t* queue, except_t* e ){
 }
 
 /**
- * Get the value at the point in the queue indicated by the iterator
+ * Gets the value at the point in the queue indicated by the iterator
  */
 void* curlyqueue_get_value_at_iterator( curlyqueue_t* queue, except_t* e ){
 	if( NULL == queue->iterator ){
@@ -389,6 +391,8 @@ void curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value, e
 }
 
 /**
+ * Deletes the value pointed at by the iterator, removes
+ * the assoc node from the list, and deallocates memory.
  * @throws	null_iter	if iterator is not set to an element
  */
 void curlyqueue_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
