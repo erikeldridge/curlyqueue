@@ -100,7 +100,7 @@ void test_curly_delete_value_at_iterator() {
 	/* BEGIN: case - iter is uninitialized */
 	{except_t e;e.thrown=0;
 		write( 1, "-- suite case: uninit --\n", sizeof( "-- suite case: uninit --\n" ) );
-		curly_delete_value_at_iterator( queue, &e );
+		curlyqueue_delete_value_at_iterator( queue, &e );
 		assert( e.thrown );
 		assert( strcmp( e.type, "null_iter" ) == 0 );
 	}
@@ -110,11 +110,11 @@ void test_curly_delete_value_at_iterator() {
 	value = &i;
 	curly_enqueue( queue, value );
 
-	curly_reset_iterator( queue );
+	curlyqueue_iterator_jump_to_back( queue );
 	
 	{except_t e;e.thrown=0;
 		write( 1, "-- suite case: 1 --\n", sizeof( "-- suite case: 1 --\n") );
-		curly_delete_value_at_iterator( queue, &e );
+		curlyqueue_delete_value_at_iterator( queue, &e );
 		
 		/* check except not thrown */
 		assert( 0 == e.thrown );
@@ -132,7 +132,7 @@ void test_curly_delete_value_at_iterator() {
 	value = &h;
 	curly_enqueue( queue, value );
 	
-	curly_reset_iterator( queue );
+	curlyqueue_iterator_jump_to_back( queue );
 	
 	assert( 3 == *(int*)queue->iterator->value );/* sanity chk */
 	
@@ -147,7 +147,7 @@ void test_curly_delete_value_at_iterator() {
     
 	{except_t e;e.thrown=0;
 		write( 1, "-- suite case: front --\n", sizeof( "-- suite case: front --\n" ) );
-		curly_delete_value_at_iterator( queue, &e );
+		curlyqueue_delete_value_at_iterator( queue, &e );
 		
 		/* check except not thrown */
 		assert( 0 == e.thrown );
@@ -160,12 +160,12 @@ void test_curly_delete_value_at_iterator() {
 	assert( queue->iterator == queue->back );
 	
 	/* BEGIN: case - iter points to back */
-	curly_reset_iterator( queue );
+	curlyqueue_iterator_jump_to_back( queue );
 	
 	{except_t e;e.thrown=0;
 		write( 1, "-- suite case: back --\n", sizeof( "-- suite case: back --\n" ) );
 		assert( queue->count == 1);
-		curly_delete_value_at_iterator( queue, &e );
+		curlyqueue_delete_value_at_iterator( queue, &e );
 		
 		/* check except not thrown */
 		assert( 0 == e.thrown );
