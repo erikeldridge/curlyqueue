@@ -177,19 +177,21 @@ void test_curly_iterator_has_next(){
     
 	/* END: test case - empty list */
     
-	/* BEGIN: test case - uninitialized iter */
+	/* BEGIN: test case - null iter */
 	int i = 4;
 	value = &i;
 	curly_enqueue( queue, value );
+	
+	queue->iterator = NULL;
 	
     {except_t e;e.thrown=0;
     	curly_iterator_has_next( queue, &e );
     	assert( strcmp( e.type, "null_iter" ) == 0 );
     }    
-	/* END: test case - uninitialized iter */
+	/* END: test case - null iter */
 	
 	/* BEGIN: test case - valid case, no except thrown */
-    /* add another value to q */
+	
 	int j = 3;
 	value = &j;
 	curly_enqueue( queue, value );
@@ -238,16 +240,18 @@ void test_curly_iterator_has_prev(){
     
 	/* END: test case - empty list */
     
-	/* BEGIN: test case - uninitialized iter */
+	/* BEGIN: test case - null iter */
 	int i = 4;
 	value = &i;
 	curly_enqueue( queue, value );
+	
+	queue->iterator = NULL;
 	
     {except_t e;e.thrown=0;
     	curly_iterator_has_prev( queue, &e );
     	assert( strcmp( e.type, "null_iter" ) == 0 );
     }    
-	/* END: test case - uninitialized iter */
+	/* END: test case - null iter */
 	
 	/* BEGIN: test case - valid case, no except thrown */
     /* add another value to q */
