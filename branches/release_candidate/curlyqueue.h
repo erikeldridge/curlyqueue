@@ -1,3 +1,7 @@
+/**
+ * @file curlyqueue.h
+ * Declares functions and data structures implemented and used, respectively, in curlyqueue.c.
+ */
 #ifndef CURLYQUEUE_H_
 #define CURLYQUEUE_H_
 

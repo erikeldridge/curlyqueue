@@ -1,3 +1,11 @@
+/**
+ * @file	mainpage.h
+ * Contains Doxygen mainpage content.
+ * Moved to external file to avoid cluttering source code files.
+ * The mainpage.h file itself is not intended to be included 
+ * in release packages, only used in documentation generation
+ * prior to release.
+ */
 #ifndef MAINPAGE_H_
 #define MAINPAGE_H_
 

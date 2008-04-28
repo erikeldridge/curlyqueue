@@ -1,3 +1,7 @@
+/**
+ * @file curlyqueue.c
+ * Implementations of functions declared in curlyqueue.h.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,11 +9,11 @@
 #include "curlyqueue.h"
 
 /**
- * Creates new list node
- * @pre		calling fn has determined prev and next pointers
- * @post	mem has been allocated for new node and
+ * Creates new list node.
+ * @pre		Calling fn has determined prev and next pointers
+ * @post	Mem has been allocated for new node and
  * 		and node field values have been assigned
- * @note	calling fn must free mem!
+ * @note	Calling fn must free mem!
  */
 curlyqueue_node_t* curlyqueue_create_node( void* value, curlyqueue_node_t* prev, curlyqueue_node_t* next ){
 	
@@ -24,16 +28,16 @@ curlyqueue_node_t* curlyqueue_create_node( void* value, curlyqueue_node_t* prev,
 
 /**
  * Initializes the linked list manager struct.
- * @post	mem has been allocated for queuea and 
+ * @post	Mem has been allocated for queuea and 
  * 		field valies have been initialized to 
  * 		null (if pointers) or zero (if count)
- * @note	calling fn must free mem!
+ * @note	Calling fn must free mem!
  */
 curlyqueue_t* curlyqueue_create_queue(){
 	
 	curlyqueue_t* queue = malloc( sizeof( struct curlyqueue_t ) );
 	
-	queue->back		= NULL;
+	queue->back	= NULL;
 	queue->front	= NULL;
 	queue->iterator	= NULL;
 	queue->count	= 0;
@@ -44,22 +48,16 @@ curlyqueue_t* curlyqueue_create_queue(){
 /** 
  * Rolls through list, freeing resources.
  * @param	queue	the q to destroy
- * @pre		the queue pointer is not NULL
- * @post	all nodes in the list are freed
- * @post	the list manager's pointers are set to null
- * @post	the list manager's count is decremented for each freed node
+ * @pre		The queue pointer is not NULL
+ * @post	All nodes in the list are freed
+ * @post	The list manager's pointers are set to null
+ * @post	The list manager's count is decremented for each freed node
  */
 void curlyqueue_destroy_queue( curlyqueue_t* queue ){
 	
-	/**
-	 the current node
-	 */
-	curlyqueue_node_t* curr = queue->back;
+	curlyqueue_node_t* curr = queue->back;	/* The current node. */
 		
-	/**
-	 the node after current node
-	 */
-	curlyqueue_node_t* next;
+	curlyqueue_node_t* next; /* The node after current node. */
 	
 	/* while the current node isn't the end of the list*/
 	while( curr != NULL ){
@@ -119,7 +117,7 @@ void curlyqueue_enqueue( curlyqueue_t* queue, void* value ){
 
 /**
  * Pops value of front of q and returns a void pointer to it
- * @except	throws "empty_q" exception if q is empty
+ * @throw	empty_q	exception if q is empty
  */
 void* curlyqueue_dequeue( curlyqueue_t* queue, except_t* e ){
 	
@@ -158,7 +156,7 @@ void* curlyqueue_dequeue( curlyqueue_t* queue, except_t* e ){
 
 /**
  * A simple function that checks if a queue
- * is empty or not
+ * is empty or not.
  * 
  * @param	queue The queue to check.
  * 
@@ -189,8 +187,10 @@ void curlyqueue_iterator_jump_to_front( curlyqueue_t* queue ){
 
 /**
  * Advances the queue iterator forward one element
- * @throw	if iterator is currently pointing at NULL, i.e.
- * 			trying to access iter->next would be bad
+ * @throw	null_iter	if iterator is currently 
+ * 				pointing at NULL, i.e.
+ * 				trying to access iter->next 
+ * 				would be bad
  * 
  */
 void curlyqueue_iterator_step_forward( curlyqueue_t* queue, except_t* e ){
