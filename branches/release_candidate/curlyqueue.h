@@ -8,46 +8,39 @@
 typedef struct	except_t			except_t;
 typedef struct	curlyqueue_node_t 	curlyqueue_node_t;
 typedef	struct	curlyqueue_t		curlyqueue_t;
-typedef struct 	iterator_t*			curlyqueue_iterator;
 
 /**
- * A datatype to help implement exception handling
- * @field	thrown	A quasi-Boolean value indicating
- * 			if an exception was thrown (1) 
- * 			or not (0).
- * @field	type	A short string to describe the 
- * 			type of exception thrown
+ * A datatype to help implement exception handling.
  */
 struct except_t {
-	int thrown;
-	char type[10];
+	int thrown;	/**< Setting to one indicates exception was thrown*/
+	char type[10];	/**< A brief description of exception */
 };
 
 /**
- * The head, tail, and count of a doubly linked list (dll).  
- * Used for managing a dll 
+ * The head, tail, and count of a queue.
  */
 struct curlyqueue_t {
-	curlyqueue_node_t*	back;
-	curlyqueue_node_t*	front;
-	curlyqueue_node_t*	iterator;
-	int count;
+	curlyqueue_node_t*	back;		/**< Ptr to back of queue */
+	curlyqueue_node_t*	front;		/**< Ptr to front of queue */
+	curlyqueue_node_t*	iterator;	/**< Ptr to a node in queue */
+	int count;				/**< The number of items in queue*/
 };
 
 /**
- *  a node in a doubly linked list (dll). 
+ * A node in a linked list. 
  */
 struct curlyqueue_node_t {
-	void*				value;
-	curlyqueue_node_t* 	prev;
-	curlyqueue_node_t* 	next;
+	void*			value;	/**< The value of the node item */
+	curlyqueue_node_t* 	prev;	/**< The previos node in the list */
+	curlyqueue_node_t* 	next;	/**< The next node in the list */
 };
 
 /* BEGIN: method list */
 
 /* BEGIN: queue management */
 curlyqueue_t*	curlyqueue_create_queue();
-void			curlyqueue_destroy_queue( curlyqueue_t* );
+void		curlyqueue_destroy_queue( curlyqueue_t* );
 
 void	curlyqueue_enqueue( curlyqueue_t* queue, void* value );
 void*	curlyqueue_dequeue( curlyqueue_t* queue, except_t* e );
