@@ -58,8 +58,8 @@ int	curly_queue_is_empty( curlyqueue_t* );
 /* END: queue management */
 
 /* BEGIN: iterator */
-int curly_iterator_has_next( curlyqueue_t* queue, except_t* e );
-int curly_iterator_has_prev( curlyqueue_t* queue, except_t* e );
+int curlyqueue_iterator_has_next( curlyqueue_t* queue, except_t* e );
+int curlyqueue_iterator_has_prev( curlyqueue_t* queue, except_t* e );
 
 void curlyqueue_iterator_step_forward( curlyqueue_t* queue, except_t* e );
 void curlyqueue_iterator_step_backward( curlyqueue_t* queue, except_t* e );

@@ -211,7 +211,7 @@ void test_curlyqueue_insert_value_before_iterator() {
 	{except_t e;e.thrown=0;//controlled test, so ignore
 	
 		//print all values except front
-		while( curly_iterator_has_next( queue, &e ) ){
+		while( curlyqueue_iterator_has_next( queue, &e ) ){
 	
 				val = *(int*)curly_get_value_at_iterator( queue, &e );	
 				
@@ -327,7 +327,7 @@ void case_insert_value_after_non_front_iter_with_multi_elem_list(){
 	{except_t e;e.thrown=0;
 	
 		//print all values except front
-		while( curly_iterator_has_next( queue, &e ) ){
+		while( curlyqueue_iterator_has_next( queue, &e ) ){
 				
 				val = *(int*)curly_get_value_at_iterator( queue, &e );	
 				
