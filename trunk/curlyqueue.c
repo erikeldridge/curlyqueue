@@ -319,7 +319,7 @@ void curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value, 
 	/* BEGIN: case - count == 1 or iter == back */
 	if ( ( 1 == queue->count ) || ( queue->iterator == queue->back ) ) {
 		/* remember, enq adds element & sets queue->back */
-		curly_	enqueue( queue, value );
+		curly_enqueue( queue, value );
 	}
 	/* END: case - count == 1 or iter == back */
 	
