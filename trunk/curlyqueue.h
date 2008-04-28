@@ -77,18 +77,17 @@ void	curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value, e
 
 /* In the works ...
 create
--iter backward
--iter set front
 -delete_node
 
 rename
--iter reset -> iter set front,back
--iter adv -> iter forward
 -curly iter fn -> curly queue iterator fn
 -private fn get leading _
 
 refactor
 -insert b4 to use iter
+
+mod
+-add iter_set_front to enqueue
 */
 
 /* END: method list */
