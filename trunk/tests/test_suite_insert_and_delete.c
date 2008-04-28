@@ -317,12 +317,26 @@ void test_curlyqueue_insert_value_before_iterator() {
 	curly_destroy_queue( queue );
 }
 
-void test_case_insert_value_after_iterator_in_empty_list(){
+void case_insert_value_after_iterator_in_empty_list(){
 	
+	curlyqueue_t* queue = curly_create_queue();
+	
+	void* value;
+	
+	int i = 0;
+	value = &i;
+	
+	{except_t e;e.thrown=0;
+		curlyqueue_insert_value_before_iterator( queue, value, &e );
+		assert( e.thrown );
+		assert( strcmp( e.type, "null_iter" ) == 0 );
+	}
+	
+	curly_destroy_queue( queue );
 }
 
 void test_curlyqueue_insert_value_after_iterator(){
-	test_case_insert_value_after_iterator_in_empty_list();
+	case_insert_value_after_iterator_in_empty_list();
 }
 
 void test_suite_insert_and_delete() {
