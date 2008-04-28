@@ -1,28 +1,27 @@
 =Introduction
 
-Curly queue is a simple queue implemented in C.  It uses a doubly-linked list for the back-end storage and offers the following (public) functions:
+Curly queue is a simple queue implemented in C.  It uses a doubly-linked list for the back-end 
+storage and offers the following (public) functions:
 
-  * create_queue()
-    * to create a queue
+	- create_queue
+	- destroy_queue
+	- is_empty
+	- enqueue
+	- dequeue
+	- iterator_has_next
+	- iterator_has_prev
+	- iterarator_jump_to_front
+	- iterator_jump_to_back
+	- get_value_at_iterator
+	- insert_value_before_iterator (I know!)
+	- insert_value_after_iterator
+	- delete_value_at_iterator
 
-  * destroy_queue()
-    * to safely destroy the queue
+Yes, you read right, this is a queue manager with arbitrary insert and delete; 
+it's the Curly queue!  
 
-  * is_empty()
-    * returns true if empty
-
-  * enqueue()
-    * to push onto the queue
-
-  * dequeue()
-    * to pop from the queue
-
-  * with more on the way!'
-
-'maybe
-
-Use this code as you like, no need to give credit.  Please refer to the license for nitty-gritty usage details.
-
+Use this code as you like, no need to give credit.  Please refer to the license 
+for the nitty-gritty licensing details.
 
 =Installation
 
@@ -57,28 +56,27 @@ in the curlyqueue-x.x.x directory
 
 int main(){
 
-        /* create a queue */
-        curlyqueue_t* queue = curly_create_queue();
+        // create a queue 
+        curlyqueue_t* queue = curlyqueue_create_queue();
 
-        /* put something in it */
+        // put something in it
         int i = 100;
         void *value = &i; 
 
-        curly_enqueue( queue, value );
+        curlyqueue_enqueue( queue, value );
 
-        /* pop it back out. */
+        // pop it back out.
         {except_t e;e.thrown=0;
-                value = curly_dequeue( queue, &e );
-                /* assume no exception thrown 
-                 * Note: the docs give info on except_t 
-                 */
+                value = curlyqueue_dequeue( queue, &e );
+                //assume no exception thrown 
+                //Note: the docs give info on except_t
         }   
 
-        /* print it */
+        // print it
         printf( "%d \n", *(int *)value );
 
-        /* kill the queue */
-        curly_destroy_queue( queue );
+        // kill the queue
+        curlyqueue_destroy_queue( queue );
 
         return 0;
 
