@@ -347,6 +347,8 @@ void case_insert_value_after_iterator_with_single_elem_in_list(){
 	
 	curly_enqueue( queue, value );
 	
+	curlyqueue_node_t* old_front = queue->front;
+	
 	int j = 1;
 	value = &j;
 	
@@ -359,9 +361,35 @@ void case_insert_value_after_iterator_with_single_elem_in_list(){
 	/* chk count */
 	assert( 2 == queue->count );
 	
-	/* chk q back == new value */
-	assert( 1 == *(int*)queue->back->value );
+	/* chk q back == old front */
+	assert( queue->back == old_front );
 	
+	/* */
+	
+	/* BEGIN: walk list, printing values */
+	curlyqueue_iterator_jump_to_back( queue );
+	int val;
+	{except_t e;e.thrown=0;
+	
+		//print all values except front
+		while( curly_iterator_has_next( queue, &e ) ){
+				
+				val = *(int*)curly_get_value_at_iterator( queue, &e );	
+				
+				printf("val: %d \n", val );
+				
+				curlyqueue_iterator_step_forward( queue, &e );
+				
+				assert( 0 == e.thrown );
+		}
+		
+		//print front value
+		val = *(int*)curly_get_value_at_iterator( queue, &e );	
+		assert( 0 == e.thrown );
+		
+		printf("val: %d \n", val );
+	}
+	/* END: walk list, printing values */
 	
 	curly_destroy_queue( queue );
 }
