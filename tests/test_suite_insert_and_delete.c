@@ -364,8 +364,6 @@ void case_insert_value_after_iterator_with_single_elem_in_list(){
 	/* chk q back == old front */
 	assert( queue->back == old_front );
 	
-	/* */
-	
 	/* BEGIN: walk list, printing values */
 	curlyqueue_iterator_jump_to_back( queue );
 	int val;
@@ -394,9 +392,14 @@ void case_insert_value_after_iterator_with_single_elem_in_list(){
 	curly_destroy_queue( queue );
 }
 
+void case_insert_value_after_iterator_with_multi_elem_list(){
+	
+}
+
 void test_curlyqueue_insert_value_after_iterator(){
 	case_insert_value_after_iterator_in_empty_list();
 	case_insert_value_after_iterator_with_single_elem_in_list();
+	case_insert_value_after_iterator_with_multi_elem_list();
 }
 /* END: testing insert_after_iter */
 
