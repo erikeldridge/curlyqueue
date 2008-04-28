@@ -58,26 +58,28 @@ int	curly_queue_is_empty( curlyqueue_t* );
 /* END: queue management */
 
 /* BEGIN: iterator */
-void curly_reset_iterator( curlyqueue_t* queue );
-void curlyqueue_iterator_step_forward( curlyqueue_t* queue, except_t* e );
-
 int curly_iterator_has_next( curlyqueue_t* queue, except_t* e );
 int curly_iterator_has_prev( curlyqueue_t* queue, except_t* e );
 
+void curlyqueue_iterator_step_forward( curlyqueue_t* queue, except_t* e );
 void curlyqueue_iterator_step_backward( curlyqueue_t* queue, except_t* e );
+
+void curlyqueue_iterator_jump_to_front( curlyqueue_t* queue );
+void curlyqueue_iterator_jump_to_back( curlyqueue_t* queue );
 /* END: iterator */
 
-/* BEGIN: bonus */
+/* BEGIN: insert, delete, get_value */
 void*	curly_get_value_at_iterator( curlyqueue_t* queue, except_t* e );
-void	curly_delete_value_at_iterator( curlyqueue_t* queue, except_t* e );
-void	curly_insert_before_iterator( curlyqueue_t* queue, curlyqueue_node_t* node, void* value );
-/* BEGIN: bonus */
+void	curlyqueue_delete_value_at_iterator( curlyqueue_t* queue, except_t* e );
+void	curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value, except_t* e );
+void	curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value, except_t* e );
+/* BEGIN: insert, delete, get_value */
 
 /* In the works ...
 create
 -iter backward
 -iter set front
--create node
+-delete_node
 
 rename
 -iter reset -> iter set front,back
