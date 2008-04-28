@@ -92,6 +92,9 @@ void test_curly_enqueue(){
 
 	/* END test case: q w 1 node */
 	
+	/* chk that iterator was set to back correctly */
+	assert( queue->iterator == queue->back );
+	
 	curly_destroy_queue( queue );
 }
 
