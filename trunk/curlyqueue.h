@@ -87,7 +87,6 @@ refactor
 -insert b4 to use iter
 
 mod
--add iter_set_front to enqueue
 */
 
 /* END: method list */
