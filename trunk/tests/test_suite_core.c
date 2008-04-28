@@ -1,9 +1,9 @@
-#include "../curlyqueue.h"
-
 #include "assert.h"
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
+
+#include "../curlyqueue.h"
 
 /* access create_node via extern to avoid having to make it public in curlyqueue.h*/
 extern curlyqueue_node_t* curlyqueue_create_node( void* value, curlyqueue_node_t *, curlyqueue_node_t * );
