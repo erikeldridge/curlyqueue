@@ -306,7 +306,7 @@ int curly_iterator_has_prev( curlyqueue_t* queue, except_t* e ) {
  * @note	The calling function is responsible for freeing the memory allocated
  * @throws	null_iter	if iter is null
  */
-void curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value ){
+void curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value, except_t* e ){
 	
 	/* BEGIN: case - q empty */
 	if ( NULL == queue->iterator ) {
@@ -319,7 +319,7 @@ void curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value )
 	/* BEGIN: case - count == 1 or iter == back */
 	if ( ( 1 == queue->count ) || ( queue->iterator == queue->back ) ) {
 		/* remember, enq adds element & sets queue->back */
-		enqueue( queue, value );
+		curly_	enqueue( queue, value );
 	}
 	/* END: case - count == 1 or iter == back */
 	
@@ -342,7 +342,7 @@ void curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value )
 /**
  * Insert the given value after the item pointed at by the q iterator
  */
-void curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value ){
+void curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value, except_t* e ){
 
 	/* BEGIN: case - q empty */
 	if ( NULL == queue->iterator ) {
