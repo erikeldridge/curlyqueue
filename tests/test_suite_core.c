@@ -5,6 +5,9 @@
 #include "stdio.h"
 #include "string.h"
 
+/* access create_node via extern to avoid having to make it public in curlyqueue.h*/
+extern curlyqueue_node_t* curlyqueue_create_node( void* value, curlyqueue_node_t *, curlyqueue_node_t * );
+
 void test_curly_create_queue(){
 	curlyqueue_t* queue = curlyqueue_create_queue();
 	
