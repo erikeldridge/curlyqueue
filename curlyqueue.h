@@ -54,7 +54,7 @@ void			curlyqueue_destroy_queue( curlyqueue_t* );
 void	curlyqueue_enqueue( curlyqueue_t* queue, void* value );
 void*	curlyqueue_dequeue( curlyqueue_t* queue, except_t* e );
 
-int	curly_queue_is_empty( curlyqueue_t* );
+int	curlyqueue_is_empty( curlyqueue_t* );
 /* END: queue management */
 
 /* BEGIN: iterator */

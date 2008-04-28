@@ -84,7 +84,7 @@ void test_curly_delete_value_at_iterator() {
 		assert( 0 == e.thrown );
 	}
 	
-	assert( curly_queue_is_empty( queue ) );/* sanity chk */
+	assert( curlyqueue_is_empty( queue ) );/* sanity chk */
 	
 	/* chk iterator correctly reset */
 	assert( queue->iterator == queue->back );
