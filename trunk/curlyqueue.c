@@ -4,10 +4,6 @@
 
 #include "curlyqueue.h"
 
-struct iterator_t {
-	curlyqueue_node_t* node;
-};
-
 /**
  * Creates new list node
  * @pre		calling fn has determined prev and next pointers
