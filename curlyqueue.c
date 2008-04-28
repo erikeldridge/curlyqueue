@@ -187,7 +187,7 @@ void curlyqueue_iterator_jump_to_back( curlyqueue_t* queue ){
  * Point the iterator at the front of the list
  */
 void curlyqueue_iterator_jump_to_front( curlyqueue_t* queue ){
-	queue->iterator = queue->back;
+	queue->iterator = queue->front;
 }
 
 /**
