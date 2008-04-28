@@ -375,6 +375,7 @@ void curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value, e
 		
 		queue->count++;		
 	}
+	/* END: case - count == 1 or iter points to front */
 	
 	/* BEGIN: case - count > 1 & iter does not point to front */
 	else {
