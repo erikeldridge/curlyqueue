@@ -45,7 +45,7 @@ void test_curly_curly_advance_iterator(){
 	curly_enqueue( queue, value );
 	
 	/* always a good idea */
-	curly_reset_iterator( queue );
+	curlyqueue_iterator_jump_to_back( queue );
 	
 	/* sanity checks, which should pass after reset */
 	assert( queue->iterator != NULL );
@@ -69,7 +69,7 @@ void test_curly_curly_advance_iterator(){
 	
 
     /* BEGIN test case: advance past front */
-	curly_reset_iterator( queue );
+	curlyqueue_iterator_jump_to_back( queue );
 	
 	for( i = 0; i < 10; i++ ){
 	    {except_t e;e.thrown=0;
@@ -105,7 +105,7 @@ void test_curlyqueue_iterator_step_backward(){
 	value = &j;
 	curly_enqueue( queue, value );
 	
-	curly_reset_iterator( queue );
+	curlyqueue_iterator_jump_to_back( queue );
 	
 	{except_t e;e.thrown=0;
 		curlyqueue_iterator_step_backward( queue, &e );
@@ -144,7 +144,7 @@ void test_curly_get_value_at_iterator(){
 	value = &k;
 	curly_enqueue( queue, value );
 	
-	curly_reset_iterator( queue );
+	curlyqueue_iterator_jump_to_back( queue );
 	
 	/* assert that get_value does not throw exception 
 	 * if called while iterator is pointed at a valid element
@@ -195,7 +195,7 @@ void test_curly_iterator_has_next(){
 	curly_enqueue( queue, value );
 	
 	/* point iter at 3 */
-	curly_reset_iterator( queue );
+	curlyqueue_iterator_jump_to_back( queue );
 	
     {except_t e;e.thrown=0;
     	curly_iterator_has_next( queue, &e );
@@ -256,7 +256,7 @@ void test_curly_iterator_has_prev(){
 	curly_enqueue( queue, value );
 	
 	/* point iter at 3 */
-	curly_reset_iterator( queue );
+	curlyqueue_iterator_jump_to_back( queue );
 	
     {except_t e;e.thrown=0;
     	curly_iterator_has_prev( queue, &e );
