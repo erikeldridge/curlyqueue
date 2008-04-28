@@ -332,16 +332,17 @@ void curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value, 
 	/* BEGIN: case - iter points to middle or front */
 	else {
 		
+		/* create node */
 		/* if iter != back, & count > 1, iter must have prev */
-		curlyqueue_node_t* prev = queue->iterator->prev;
-	
-		curlyqueue_node_t* next = queue->iterator;
-				
-		curlyqueue_node_t* node = curly_create_node( queue, prev, next );
+		curlyqueue_node_t* prev = queue->iterator->prev;	
+		curlyqueue_node_t* next = queue->iterator;				
+		curlyqueue_node_t* node = curly_create_node( value, prev, next );
+		
+		/* insert node in list */
+		prev->next = node;
+		next->prev = node;
 		
 		queue->count++;
-		
-		queue->iterator = node;
 	}
 }
 
