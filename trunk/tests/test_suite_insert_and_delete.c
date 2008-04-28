@@ -317,9 +317,14 @@ void test_curlyqueue_insert_value_before_iterator() {
 	curly_destroy_queue( queue );
 }
 
+void test_curlyqueue_insert_value_after_iterator(){
+	
+}
+
 void test_suite_insert_and_delete() {
 
 	ADD_TEST( test_curly_delete_value_at_iterator )
 	ADD_TEST( test_curlyqueue_insert_value_before_iterator )
-	
+	ADD_TEST( test_curlyqueue_insert_value_after_iterator )
+
 }
