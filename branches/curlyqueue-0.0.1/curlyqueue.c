@@ -94,7 +94,7 @@ void curlyqueue_enqueue( curlyqueue_t* queue, void* value ){
 	curlyqueue_node_t* node = curlyqueue_create_node( value, prev, next );
 	
 	/* if this is the first node, the tail = the head*/
-	if( curly_queue_is_empty( queue ) ){
+	if( curlyqueue_is_empty( queue ) ){
 		
 		queue->front = node;
 		
@@ -115,7 +115,7 @@ void curlyqueue_enqueue( curlyqueue_t* queue, void* value ){
  */
 void* curlyqueue_dequeue( curlyqueue_t* queue, except_t* e ){
 	
-	if( curly_queue_is_empty( queue ) ){
+	if( curlyqueue_is_empty( queue ) ){
 		/* throw exception */
 		e->thrown = 1;
 		memcpy( e->type, "empty_q", 8 );
@@ -157,7 +157,7 @@ void* curlyqueue_dequeue( curlyqueue_t* queue, except_t* e ){
  * @return	1, if the queue is empty
  * @return 	0 if not empty
  */
-int curly_queue_is_empty( curlyqueue_t* queue ){
+int curlyqueue_is_empty( curlyqueue_t* queue ){
 	if( 0 == queue->count ){
 		return 1;
 	}else{
