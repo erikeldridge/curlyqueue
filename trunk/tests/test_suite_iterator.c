@@ -171,7 +171,7 @@ void test_curly_iterator_has_next(){
 	
 	/* BEGIN: test case - empty list */
     {except_t e;e.thrown=0;
-    	curly_iterator_has_next( queue, &e );
+    	curlyqueue_iterator_has_next( queue, &e );
     	assert( strcmp( e.type, "empty_q" ) == 0 );
     }
     
@@ -185,7 +185,7 @@ void test_curly_iterator_has_next(){
 	queue->iterator = NULL;
 	
     {except_t e;e.thrown=0;
-    	curly_iterator_has_next( queue, &e );
+    	curlyqueue_iterator_has_next( queue, &e );
     	assert( strcmp( e.type, "null_iter" ) == 0 );
     }    
 	/* END: test case - null iter */
@@ -200,15 +200,15 @@ void test_curly_iterator_has_next(){
 	curlyqueue_iterator_jump_to_back( queue );
 	
     {except_t e;e.thrown=0;
-    	curly_iterator_has_next( queue, &e );
+    	curlyqueue_iterator_has_next( queue, &e );
     	assert( 0 == e.thrown );
     }
 	/* END: test case - valid case, no except thrown */
     
 	/* BEGIN: test case - has next */
     {except_t e;e.thrown=0;
-    	curly_iterator_has_next( queue, &e );
-    	assert( curly_iterator_has_next( queue, &e ) );
+    	curlyqueue_iterator_has_next( queue, &e );
+    	assert( curlyqueue_iterator_has_next( queue, &e ) );
     }
 	/* END: test case - has next */
     
@@ -219,8 +219,8 @@ void test_curly_iterator_has_next(){
     } 
     
     {except_t e;e.thrown=0;
-    	curly_iterator_has_next( queue, &e );
-    	assert( 0 == curly_iterator_has_next( queue, &e ) );
+    	curlyqueue_iterator_has_next( queue, &e );
+    	assert( 0 == curlyqueue_iterator_has_next( queue, &e ) );
     }
 	/* END: test case - does not have next  */
 	
@@ -234,7 +234,7 @@ void test_curly_iterator_has_prev(){
 	
 	/* BEGIN: test case - empty list */
     {except_t e;e.thrown=0;
-    	curly_iterator_has_prev( queue, &e );
+    	curlyqueue_iterator_has_prev( queue, &e );
     	assert( strcmp( e.type, "empty_q" ) == 0 );
     }
     
@@ -248,7 +248,7 @@ void test_curly_iterator_has_prev(){
 	queue->iterator = NULL;
 	
     {except_t e;e.thrown=0;
-    	curly_iterator_has_prev( queue, &e );
+    	curlyqueue_iterator_has_prev( queue, &e );
     	assert( strcmp( e.type, "null_iter" ) == 0 );
     }    
 	/* END: test case - null iter */
@@ -263,14 +263,14 @@ void test_curly_iterator_has_prev(){
 	curlyqueue_iterator_jump_to_back( queue );
 	
     {except_t e;e.thrown=0;
-    	curly_iterator_has_prev( queue, &e );
+    	curlyqueue_iterator_has_prev( queue, &e );
     	assert( 0 == e.thrown );
     }
 	/* END: test case - valid case, no except thrown */
     
 	/* BEGIN: test case - does not have prev */    
     {except_t e;e.thrown=0;
-    	assert( 0 == curly_iterator_has_prev( queue, &e ) );
+    	assert( 0 == curlyqueue_iterator_has_prev( queue, &e ) );
     }
 	/* END: test case - does not have prev  */
 
@@ -282,7 +282,7 @@ void test_curly_iterator_has_prev(){
     }
     
     {except_t e;e.thrown=0;
-    	assert( curly_iterator_has_prev( queue, &e ) );
+    	assert( curlyqueue_iterator_has_prev( queue, &e ) );
     }
 	/* END: test case - has prev */
     

@@ -251,9 +251,9 @@ void* curly_get_value_at_iterator( curlyqueue_t* queue, except_t* e ){
  * 						is non-empty)
  * @return	0	if queue does not have next
  * @return	1	if queue does have next
- * @see	curly_iterator_has_prev
+ * @see	curlyqueue_iterator_has_prev
  */
-int curly_iterator_has_next( curlyqueue_t* queue, except_t* e ) {
+int curlyqueue_iterator_has_next( curlyqueue_t* queue, except_t* e ) {
 	if( curly_queue_is_empty( queue ) ){
 		/* throw */
 		e->thrown = 1;
@@ -281,9 +281,9 @@ int curly_iterator_has_next( curlyqueue_t* queue, except_t* e ) {
  * 						is non-empty)
  * @return	0	if queue does not have prev
  * @return	1	if queue does have prev
- * @see	curly_iterator_has_next
+ * @see	curlyqueue_iterator_has_next
  */
-int curly_iterator_has_prev( curlyqueue_t* queue, except_t* e ) {
+int curlyqueue_iterator_has_prev( curlyqueue_t* queue, except_t* e ) {
 	if( curly_queue_is_empty( queue ) ){
 		/* throw */
 		e->thrown = 1;
