@@ -362,28 +362,31 @@ void curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value, e
 	
 	/* BEGIN: case - count == 1 or iter points to front */
 	if ( ( 1 == queue->count ) || ( queue->iterator == queue->front ) ) {
-		curlyqueue_node_t* prev = queue->iterator;
-		curlyqueue_node_t* next = NULL;
-		curlyqueue_node_t* node = curly_create_node( queue, prev, next );	
-		queue->iterator->next	= node;	
-		queue->front			= node;
-		queue->count++;		
-		queue->iterator = node;
-	}
-	
-	/* BEGIN: case - iter points to back */
-	else {
+		
 		curlyqueue_node_t* prev = queue->iterator;
 		curlyqueue_node_t* next = queue->iterator->next;
-		curlyqueue_node_t* node = curly_create_node( queue, prev, next );
+		curlyqueue_node_t* node = curly_create_node( value, prev, next );	
 		
-		queue->iterator->next->prev = node;
-		queue->iterator->next		= node;
-		queue->iterator				= node;
+		prev->next		= node;	
+		
+		queue->front	= node;
 		
 		queue->count++;		
 	}
-	/* BEGIN: case - iter points to middle */
+	
+	/* BEGIN: case - count > 1 & iter does not point to front */
+	else {
+		/* create node */
+		curlyqueue_node_t* prev = queue->iterator;
+		curlyqueue_node_t* next = queue->iterator->next;
+		curlyqueue_node_t* node = curly_create_node( value, prev, next );
+		
+		/* insert it */
+		prev->next = node;
+		next->prev = node;
+		
+		queue->count++;		
+	}
 }
 
 /**
