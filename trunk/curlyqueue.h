@@ -46,7 +46,7 @@ struct curlyqueue_node_t {
 /* BEGIN: method list */
 
 /* BEGIN: queue management */
-curlyqueue_node_t* 	curly_create_node( void* value, curlyqueue_node_t *, curlyqueue_node_t * );
+curlyqueue_node_t* 	curlyqueue_create_node( void* value, curlyqueue_node_t *, curlyqueue_node_t * );
 
 curlyqueue_t*	curly_create_queue();
 void			curly_destroy_queue( curlyqueue_t* );
@@ -69,7 +69,7 @@ void curlyqueue_iterator_jump_to_back( curlyqueue_t* queue );
 /* END: iterator */
 
 /* BEGIN: insert, delete, get_value */
-void*	curly_get_value_at_iterator( curlyqueue_t* queue, except_t* e );
+void*	curlyqueue_get_value_at_iterator( curlyqueue_t* queue, except_t* e );
 void	curlyqueue_delete_value_at_iterator( curlyqueue_t* queue, except_t* e );
 void	curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value, except_t* e );
 void	curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value, except_t* e );
