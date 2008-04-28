@@ -206,6 +206,9 @@ void test_curlyqueue_insert_value_before_iterator() {
 		assert( 0 == e.thrown );
 	}
 	
+	/* chk if count has increased */
+	assert( 2 == queue->count );
+	
 	/* chk if back == new value */
 	assert( 8 == *(int*)queue->back->value );
 	
