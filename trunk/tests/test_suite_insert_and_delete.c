@@ -99,7 +99,6 @@ void test_curly_delete_value_at_iterator() {
 	
 	/* BEGIN: case - iter is uninitialized */
 	{except_t e;e.thrown=0;
-		//write( 1, "-- suite case: uninit --\n", sizeof( "-- suite case: uninit --\n" ) );
 		curlyqueue_delete_value_at_iterator( queue, &e );
 		assert( e.thrown );
 		assert( strcmp( e.type, "null_iter" ) == 0 );
@@ -398,6 +397,7 @@ void case_insert_value_after_non_front_iter_with_multi_elem_list(){
 	
 	void* value;
 	
+	/* create q of 5 elems */
 	int values[] = {1,2,3,4,5};
 	int i;
 	for( i = 0; i < 5; i++ ){
@@ -405,11 +405,34 @@ void case_insert_value_after_non_front_iter_with_multi_elem_list(){
 		curly_enqueue( queue, value );
 	}
 	
+	/* now, test for correct insertion behavior */
 	{except_t e;e.thrown=0;
+	
+		/* walk through q for a bit, but not all the way to the front */
+		curlyqueue_iterator_step_forward( queue, &e );
+		curlyqueue_iterator_step_forward( queue, &e );
+		curlyqueue_iterator_step_forward( queue, &e );
+		assert( 0 == e.thrown );
 		
+		/* insert  value after the iterator */
+		int j = 6;
+		value = &j;
+		
+		curlyqueue_insert_value_after_iterator( queue, value, &e );
+		assert( 0 == e.thrown );
+		
+		/* chk the simple issue of the q size increasing */
+		assert( 6 == queue->count );
+				
+		/* chk that the value was added after the iter */
+		curlyqueue_iterator_step_forward( queue, &e );
+		assert( 0 == e.thrown );
+		
+		int val = *(int*)curly_get_value_at_iterator( queue, &e );
+		assert( 6 == val );		
 	}
 	
-	/* BEGIN: walk list, printing values */
+	/* BEGIN: walk list, printing values 
 	curlyqueue_iterator_jump_to_back( queue );
 	int val;
 	{except_t e;e.thrown=0;
