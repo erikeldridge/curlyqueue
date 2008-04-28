@@ -363,10 +363,12 @@ void curlyqueue_insert_value_after_iterator( curlyqueue_t* queue, void* value, e
 	/* BEGIN: case - count == 1 or iter points to front */
 	if ( ( 1 == queue->count ) || ( queue->iterator == queue->front ) ) {
 		
+		/* create node */
 		curlyqueue_node_t* prev = queue->iterator;
 		curlyqueue_node_t* next = queue->iterator->next;
 		curlyqueue_node_t* node = curly_create_node( value, prev, next );	
 		
+		/* insert it and update q front ptr */
 		prev->next		= node;	
 		
 		queue->front	= node;
