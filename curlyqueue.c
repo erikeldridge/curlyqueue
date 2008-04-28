@@ -329,7 +329,7 @@ void curlyqueue_insert_value_before_iterator( curlyqueue_t* queue, void* value, 
 	}
 	/* END: case - count == 1 or iter == back */
 	
-	/* BEGIN: case - iter points to front */
+	/* BEGIN: case - iter points to middle or front */
 	else {
 		
 		/* if iter != back, & count > 1, iter must have prev */
