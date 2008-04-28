@@ -90,6 +90,9 @@ void curly_destroy_queue( curlyqueue_t* queue ){
  * @param	queue	The queue to add the value to
  * @param	value	The value to push onto the q
  * @post	The queue's count is incremented
+ * @post	Iterator is set to queue->back (to remove the need for
+ * 			remembering if the iter was initalized or not,ie to avoid
+ * 			the possibility of a null iter if there are items in list)
  */
 void curly_enqueue( curlyqueue_t* queue, void* value ){
 	
@@ -113,6 +116,9 @@ void curly_enqueue( curlyqueue_t* queue, void* value ){
 	
 	/* increment the list's internal count of nodes */
 	queue->count++;	
+	
+	/* set iter to back with each enqueue */
+	curlyqueue_iterator_jump_to_back( queue );
 }
 
 /**
