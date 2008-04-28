@@ -6,9 +6,13 @@ extern void test_suite_insert_and_delete();
 
 int main() {
 
-	ADD_SUITE( test_suite_core );
-	ADD_SUITE( test_suite_iterator );
-	ADD_SUITE( test_suite_insert_and_delete );
+	BEGIN_RUNNER()
+	
+		ADD_SUITE( test_suite_core )
+		ADD_SUITE( test_suite_iterator )
+		ADD_SUITE( test_suite_insert_and_delete )
+	
+	END_RUNNER()
 	
 	return 0;
 }

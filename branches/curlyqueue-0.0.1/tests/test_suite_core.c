@@ -6,7 +6,7 @@
 #include "string.h"
 
 void test_curly_create_queue(){
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	
 	/* test correct pointer & count initialization */
 	assert( NULL == queue->front );
@@ -17,9 +17,9 @@ void test_curly_create_queue(){
 }
 
 void test_curly_destroy_queue(){
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 
 	/* test correct pointer dedangling */
 	//TODO: why does this fail? 
@@ -35,7 +35,7 @@ void test_curly_create_node(){
 	curlyqueue_node_t* prev = NULL;
 	curlyqueue_node_t* next = NULL;
 	
-	curlyqueue_node_t* node = curly_create_node( value, prev, next );
+	curlyqueue_node_t* node = curlyqueue_create_node( value, prev, next );
 	
 	/* test proper assignment of node fields */
 	assert( NULL == node->prev );
@@ -56,7 +56,7 @@ void test_curly_create_node(){
 	
 	value = &struct_value;
 	
-	node = curly_create_node( value, prev, next );
+	node = curlyqueue_create_node( value, prev, next );
 	
 	sample_struct struct_value2 = *(sample_struct*)node->value;
 	assert( 7 == struct_value2.j );
@@ -67,13 +67,13 @@ void test_curly_create_node(){
 
 void test_curly_enqueue(){
 	
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	
 	int i = 7;
 	void* value = &i;
 	
 	/* BEGIN test case: empty q */
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 
 	assert( 1 == queue->count );
 	assert( 7 == *(int*)queue->back->value );
@@ -83,7 +83,7 @@ void test_curly_enqueue(){
 	/* BEGIN test case: q w 1 node */
 	int j = 8;
 	value = &j;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 
 	assert( 2 == queue->count );
 	assert( 8 == *(int*)queue->back->value );
@@ -92,12 +92,12 @@ void test_curly_enqueue(){
 
 	/* END test case: q w 1 node */
 	
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 void test_curly_dequeue(){
 	
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	
 	int i = 7;
 	void* value = &i;
@@ -106,7 +106,7 @@ void test_curly_dequeue(){
 	/* try */
 	{except_t e;e.thrown=0;
 
-		curly_dequeue( queue, &e );
+		curlyqueue_dequeue( queue, &e );
 		
 		/* catch */
 		assert( 1 == e.thrown );
@@ -118,13 +118,13 @@ void test_curly_dequeue(){
 	
 	int j = 8;
 	value = &j;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 
 	int k;
 	/* try */
 	{except_t e;e.thrown=0;
 
-		k = *(int*)curly_dequeue( queue, &e );
+		k = *(int*)curlyqueue_dequeue( queue, &e );
 		
 		/* catch */
 		assert( 0 == e.thrown );
@@ -143,17 +143,17 @@ void test_curly_dequeue(){
 	
 	int l = 3;
 	value = &l;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 
 	int m = 4;
 	value = &m;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 
 	int n;
 	/* try */
 	{except_t e;e.thrown=0;
 
-		n = *(int*)curly_dequeue( queue, &e );
+		n = *(int*)curlyqueue_dequeue( queue, &e );
 	}
 
 	/* check that correct value is returned for a fifo list */
@@ -167,7 +167,7 @@ void test_curly_dequeue(){
 
 	/* END test case: q w > 1 node */
 
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 void test_suite_core() {

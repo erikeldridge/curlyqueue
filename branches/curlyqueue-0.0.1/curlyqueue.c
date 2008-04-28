@@ -11,7 +11,7 @@
  * 		and node field values have been assigned
  * @note	calling fn must free mem!
  */
-curlyqueue_node_t* curly_create_node( void* value, curlyqueue_node_t* prev, curlyqueue_node_t* next ){
+curlyqueue_node_t* curlyqueue_create_node( void* value, curlyqueue_node_t* prev, curlyqueue_node_t* next ){
 	
 	curlyqueue_node_t* node = ( curlyqueue_node_t* )malloc( sizeof( curlyqueue_node_t ) );
 	
@@ -29,7 +29,7 @@ curlyqueue_node_t* curly_create_node( void* value, curlyqueue_node_t* prev, curl
  * 		null (if pointers) or zero (if count)
  * @note	calling fn must free mem!
  */
-curlyqueue_t* curly_create_queue(){
+curlyqueue_t* curlyqueue_create_queue(){
 	
 	curlyqueue_t* queue = malloc( sizeof( curlyqueue_t ) );
 	
@@ -48,7 +48,7 @@ curlyqueue_t* curly_create_queue(){
  * @post	the list manager's pointers are set to null
  * @post	the list manager's count is decremented for each freed node
  */
-void curly_destroy_queue( curlyqueue_t* queue ){
+void curlyqueue_destroy_queue( curlyqueue_t* queue ){
 	
 	/**
 	 the current node
@@ -86,12 +86,12 @@ void curly_destroy_queue( curlyqueue_t* queue ){
  * @param	value	The value to push onto the q
  * @post	The queue's count is incremented
  */
-void curly_enqueue( curlyqueue_t* queue, void* value ){
+void curlyqueue_enqueue( curlyqueue_t* queue, void* value ){
 	
 	curlyqueue_node_t* prev = NULL;
 	curlyqueue_node_t* next = queue->back;
 	
-	curlyqueue_node_t* node = curly_create_node( value, prev, next );
+	curlyqueue_node_t* node = curlyqueue_create_node( value, prev, next );
 	
 	/* if this is the first node, the tail = the head*/
 	if( curly_queue_is_empty( queue ) ){
@@ -113,7 +113,7 @@ void curly_enqueue( curlyqueue_t* queue, void* value ){
 /**
  * @except	throws "empty_q" exception if q is empty
  */
-void* curly_dequeue( curlyqueue_t* queue, except_t* e ){
+void* curlyqueue_dequeue( curlyqueue_t* queue, except_t* e ){
 	
 	if( curly_queue_is_empty( queue ) ){
 		/* throw exception */

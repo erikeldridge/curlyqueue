@@ -8,7 +8,7 @@
 
 void test_curly_curly_advance_iterator(){
 	
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	
 	/* BEGIN test case: empty queue */
 	
@@ -26,23 +26,23 @@ void test_curly_curly_advance_iterator(){
      */
 	int j = 4;
 	void *value = &j;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	int k = 3;
 	value = &k;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 
 	int l = 2;
 	value = &l;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 
 	int m = 1;
 	value = &m;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 
 	int n = 0;
 	value = &n;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	/* always a good idea */
 	curlyqueue_iterator_jump_to_back( queue );
@@ -55,7 +55,7 @@ void test_curly_curly_advance_iterator(){
 	int i;
 	for( i = 0; i < 10; i++ ){
 	    {except_t e1,e2;e1.thrown=e2.thrown=0;
-	    	value = curly_get_value_at_iterator( queue, &e2 );
+	    	value = curlyqueue_get_value_at_iterator( queue, &e2 );
 	    	if( e2.thrown ){/* we have adv iter past end of q */
 	    		break;
 	    	}
@@ -83,13 +83,13 @@ void test_curly_curly_advance_iterator(){
 	}
     /* END test case: advance past front */
 	
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 	
 }
 
 void test_curlyqueue_iterator_step_backward(){
 	
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	void* value;
 	
 	/* BEGIN: case: iter is null */
@@ -103,7 +103,7 @@ void test_curlyqueue_iterator_step_backward(){
 	/* BEGIN: case: iter not null */
 	int j = 4;
 	value = &j;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	curlyqueue_iterator_jump_to_back( queue );
 	
@@ -122,15 +122,15 @@ void test_curlyqueue_iterator_step_backward(){
 	
 	/* END: case: iter not null */
 	
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 void test_curly_get_value_at_iterator(){
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	void* value;
 	/* BEGIN: test case - empty list */
     {except_t e;e.thrown=0;
-    	value = curly_get_value_at_iterator( queue, &e );
+    	value = curlyqueue_get_value_at_iterator( queue, &e );
     	assert( e.thrown );
     }
 	/* END: test case - empty list */
@@ -138,11 +138,11 @@ void test_curly_get_value_at_iterator(){
 	/* BEGIN: test case - non-empty list */
 	int j = 4;
 	value = &j;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	int k = 3;
 	value = &k;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	curlyqueue_iterator_jump_to_back( queue );
 	
@@ -151,7 +151,7 @@ void test_curly_get_value_at_iterator(){
 	 * in list, as ensured by reset_iter 
 	 */
     {except_t e;e.thrown=0;
-    	value = curly_get_value_at_iterator( queue, &e );
+    	value = curlyqueue_get_value_at_iterator( queue, &e );
     	assert( 0 == e.thrown );
     }
     
@@ -161,12 +161,12 @@ void test_curly_get_value_at_iterator(){
     assert( 3 == *(int*)value );
     
 	/* END: test case - non-empty list */
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 void test_curly_iterator_has_next(){
 	
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	void* value;
 	
 	/* BEGIN: test case - empty list */
@@ -180,7 +180,7 @@ void test_curly_iterator_has_next(){
 	/* BEGIN: test case - null iter */
 	int i = 4;
 	value = &i;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	queue->iterator = NULL;
 	
@@ -194,7 +194,7 @@ void test_curly_iterator_has_next(){
 	
 	int j = 3;
 	value = &j;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	/* point iter at 3 */
 	curlyqueue_iterator_jump_to_back( queue );
@@ -224,12 +224,12 @@ void test_curly_iterator_has_next(){
     }
 	/* END: test case - does not have next  */
 	
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 void test_curly_iterator_has_prev(){
 	
-	curlyqueue_t* queue = curly_create_queue();
+	curlyqueue_t* queue = curlyqueue_create_queue();
 	void* value;
 	
 	/* BEGIN: test case - empty list */
@@ -243,7 +243,7 @@ void test_curly_iterator_has_prev(){
 	/* BEGIN: test case - null iter */
 	int i = 4;
 	value = &i;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	queue->iterator = NULL;
 	
@@ -257,7 +257,7 @@ void test_curly_iterator_has_prev(){
     /* add another value to q */
 	int j = 3;
 	value = &j;
-	curly_enqueue( queue, value );
+	curlyqueue_enqueue( queue, value );
 	
 	/* point iter at 3 */
 	curlyqueue_iterator_jump_to_back( queue );
@@ -286,7 +286,7 @@ void test_curly_iterator_has_prev(){
     }
 	/* END: test case - has prev */
     
-	curly_destroy_queue( queue );
+	curlyqueue_destroy_queue( queue );
 }
 
 void test_suite_iterator() {
