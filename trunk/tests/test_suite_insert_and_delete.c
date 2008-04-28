@@ -179,6 +179,17 @@ void test_curly_delete_value_at_iterator() {
 	curly_destroy_queue( queue );
 }
 
+void test_curlyqueue_insert_value_before_iterator() {
+	
+	curlyqueue_t* queue = curly_create_queue();
+	void* value;
+	
+	/* BEGIN: case - q empty */
+	/* BEGIN: case - count == 1 or iter == back */
+	/* BEGIN: case - iter points to front */
+	curly_destroy_queue( queue );
+}
+
 void test_suite_insert_and_delete() {
 
 	ADD_TEST( test_curly_delete_value_at_iterator )
