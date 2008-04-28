@@ -317,6 +317,7 @@ void test_curlyqueue_insert_value_before_iterator() {
 	curly_destroy_queue( queue );
 }
 
+/* BEGIN: testing insert_after_iter */
 void case_insert_value_after_iterator_in_empty_list(){
 	
 	curlyqueue_t* queue = curly_create_queue();
@@ -327,7 +328,25 @@ void case_insert_value_after_iterator_in_empty_list(){
 	value = &i;
 	
 	{except_t e;e.thrown=0;
-		curlyqueue_insert_value_before_iterator( queue, value, &e );
+		curlyqueue_insert_value_after_iterator( queue, value, &e );
+		assert( e.thrown );
+		assert( strcmp( e.type, "null_iter" ) == 0 );
+	}
+	
+	curly_destroy_queue( queue );
+}
+
+void case_insert_value_after_iterator_one_elem_in_list(){
+	
+	curlyqueue_t* queue = curly_create_queue();
+	
+	void* value;
+	
+	int i = 0;
+	value = &i;
+	
+	{except_t e;e.thrown=0;
+		curlyqueue_insert_value_after_iterator( queue, value, &e );
 		assert( e.thrown );
 		assert( strcmp( e.type, "null_iter" ) == 0 );
 	}
@@ -337,7 +356,9 @@ void case_insert_value_after_iterator_in_empty_list(){
 
 void test_curlyqueue_insert_value_after_iterator(){
 	case_insert_value_after_iterator_in_empty_list();
+	case_insert_value_after_iterator_one_elem_in_list();
 }
+/* END: testing insert_after_iter */
 
 void test_suite_insert_and_delete() {
 
