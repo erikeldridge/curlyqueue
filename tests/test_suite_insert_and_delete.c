@@ -364,7 +364,7 @@ void case_insert_value_after_iterator_with_single_elem_in_list(){
 	/* chk q back == old front */
 	assert( queue->back == old_front );
 	
-	/* BEGIN: walk list, printing values */
+	/* BEGIN: walk list, printing values 
 	curlyqueue_iterator_jump_to_back( queue );
 	int val;
 	{except_t e;e.thrown=0;
@@ -392,14 +392,57 @@ void case_insert_value_after_iterator_with_single_elem_in_list(){
 	curly_destroy_queue( queue );
 }
 
-void case_insert_value_after_iterator_with_multi_elem_list(){
+void case_insert_value_after_non_front_iter_with_multi_elem_list(){
 	
+	curlyqueue_t* queue = curly_create_queue();
+	
+	void* value;
+	
+	int values[] = {1,2,3,4,5};
+	int i;
+	for( i = 0; i < 5; i++ ){
+		value = (void*)&values[i];
+		curly_enqueue( queue, value );
+	}
+	
+	{except_t e;e.thrown=0;
+		
+	}
+	
+	/* BEGIN: walk list, printing values */
+	curlyqueue_iterator_jump_to_back( queue );
+	int val;
+	{except_t e;e.thrown=0;
+	
+		//print all values except front
+		while( curly_iterator_has_next( queue, &e ) ){
+				
+				val = *(int*)curly_get_value_at_iterator( queue, &e );	
+				
+				printf("val: %d \n", val );
+				
+				curlyqueue_iterator_step_forward( queue, &e );
+				
+				assert( 0 == e.thrown );
+		}
+		
+		//print front value
+		val = *(int*)curly_get_value_at_iterator( queue, &e );	
+		assert( 0 == e.thrown );
+		
+		printf("val: %d \n", val );
+	}
+	/* END: walk list, printing values */
+	
+	
+	
+	curly_destroy_queue( queue );
 }
 
 void test_curlyqueue_insert_value_after_iterator(){
 	case_insert_value_after_iterator_in_empty_list();
 	case_insert_value_after_iterator_with_single_elem_in_list();
-	case_insert_value_after_iterator_with_multi_elem_list();
+	case_insert_value_after_non_front_iter_with_multi_elem_list();
 }
 /* END: testing insert_after_iter */
 
