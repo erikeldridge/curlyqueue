@@ -1,0 +1,20 @@
+#summary A template for formatting example code
+#labels Phase-Deploy
+
+Please use this format for examples:
+
+== Title ==
+_The title of the example_
+
+=== Context ===
+_When would I use this code?_
+
+=== Code ===
+{{{
+...
+}}}
+
+=== Result ===
+_What happens when I run this code?_
+
+----
