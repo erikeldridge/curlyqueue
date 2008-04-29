@@ -1,14 +1,58 @@
 #summary Examples of code using the Curly queue library
 #labels Phase-Deploy
 
-= Introduction =
+= Examples =
+_I'm a big fan of examples_
 
-Add your content here.
+Please use this format:
+== Title ==
+_The title of the example_
 
+=== Context ===
+_When would I use this code?_
 
-= Details =
+{{{
+_The code_
+}}}
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== Result ==
+_What happens when I run this code?_
+
+----
+
+== Walking a Curly queue ==
+
+== Context ==
+Use this to iterate through a curly queue and do whatever (print, in this case) on each value
+
+{{{
+/* create q and load values */
+/* BEGIN: walk list, printing values 
+curlyqueue_iterator_jump_to_back( queue );
+int val;
+{except_t e;e.thrown=0;//controlled test, so ignore
+        
+    //print all values except front
+    while( curlyqueue_iterator_has_next( queue, &e ) ){
+        
+        val = *(int*)curlyqueue_get_value_at_iterator( queue, &e );     
+                                
+        printf("val: %d \n", val );
+                                
+        curlyqueue_iterator_step_forward( queue, &e );
+    }
+                
+    //print front value
+    val = *(int*)curlyqueue_get_value_at_iterator( queue, &e );     
+                
+    printf("val: %d \n", val );
+    }
+    /* END: walk list, printing values */
+}}}
+
+== Result ==
+prints
+_val 1_
+_val 2_
+_val 3_
+...
