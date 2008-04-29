@@ -1,10 +1,9 @@
-#summary A template for formatting example code
+#summary Template: for formatting example code wiki page
 #labels Phase-Deploy
 
-Please use this format for examples:
+_Please use this format for examples:_
 
 == Title ==
-_The title of the example_
 
 === Context ===
 _When would I use this code?_
@@ -16,5 +15,3 @@ _When would I use this code?_
 
 === Result ===
 _What happens when I run this code?_
-
-----
