@@ -25,5 +25,3 @@ curlyqueue_delete_queue( queue );
 
 === Result ===
 You end up with a queue of five elements: _5,4,3,2,1_
-
-----
