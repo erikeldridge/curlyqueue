@@ -1,4 +1,4 @@
-#summary Example code for walking a Curly queue
+#summary Example: Walking a Curly queue
 #labels Phase-Deploy
 
 == Walking a Curly queue ==
