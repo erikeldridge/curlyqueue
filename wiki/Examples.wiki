@@ -1,26 +1,6 @@
 #summary Examples of code using the Curly queue library
 #labels Phase-Deploy
 
-= Examples =
-_I'm a big fan of examples_
-
-Please use this format:
-== Title ==
-_The title of the example_
-
-=== Context ===
-_When would I use this code?_
-
-=== Code ===
-{{{
-
-}}}
-
-=== Result ===
-_What happens when I run this code?_
-
-----
-
 == Walking a Curly queue ==
 
 === Context ===
