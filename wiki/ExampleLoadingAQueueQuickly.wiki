@@ -1,0 +1,29 @@
+#summary How to load a queue in a hurry
+#labels Phase-Deploy
+
+== Load queue quickly ==
+
+=== Context ===
+You want to generate a Curly queue without declaring a plethora of variables
+
+=== Code ===
+{{{
+curlyqueue_t* queue = curlyqueue_create_queue();
+
+void* value;
+
+/* create q of 5 elems */
+int values[] = {1,2,3,4,5};
+int i;
+for( i = 0; i < 5; i++ ){
+    value = (void*)&values[i];
+    curlyqueue_enqueue( queue, value );
+}
+...
+curlyqueue_delete_queue( queue );
+}}}
+
+=== Result ===
+You end up with a queue of five elements: _5,4,3,2,1_
+
+----
