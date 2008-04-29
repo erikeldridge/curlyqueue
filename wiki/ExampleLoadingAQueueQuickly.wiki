@@ -1,4 +1,4 @@
-#summary How to load a queue in a hurry
+#summary Example: How to load a queue in a hurry
 #labels Phase-Deploy
 
 == Load queue quickly ==
