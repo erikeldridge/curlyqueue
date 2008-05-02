@@ -463,6 +463,8 @@ void curlyqueue_delete_value_at_iterator( curlyqueue_t* queue, except_t* e ) {
 		
 		free( queue->iterator );
 		
+		queue->count--;
+		
 		prev->next = next;
 		next->prev = prev;
 		
